@@ -1,3 +1,6 @@
+class PosNoExistenteException(Exception):
+    pass
+
 class Tablero:
     def _init_(self): 
         self._contenedor_ = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [] ]
@@ -24,3 +27,26 @@ class Tablero:
         print(f"Barra Negras: {self._bar_negro_}")
         print(f"Borneadas Blancas: {self._off_blanco_}")
         print(f"Borneadas Negras: {self._off_negro_}")
+
+    def get_point(self, indice):
+        if 0 <= indice < len(self._contenedor_):
+            return self._contenedor_[indice]
+        else:
+            raise PosNoExistenteException("El punto no existe en el tablero.")
+        
+    def obtener_bar(self, color):
+        if color == 'B':
+            return self._bar_blanco_
+        elif color == 'N':
+            return self._bar_negro_
+        else:
+            raise ValueError("Color no válido. Use B para blanco o N para negro")
+        
+    def obtener_off(self, color): 
+        if color == 'B':
+            return self._off_blanco_
+        elif color == 'N':
+            return self._off_negro_
+        else:
+            raise ValueError("Color no válido. Use B para blanco o N para negro")
+        
