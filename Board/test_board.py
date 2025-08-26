@@ -20,6 +20,15 @@ class TestTablero(unittest.TestCase):
         tablero.setup()
         punto = tablero.get_point(0)
         self.assertIsInstance(punto, list)
-        
+
+    def test_get_point_no_existe(self): # si pedis una posicion q no existe, te tira error
+        tablero = Tablero()
+        with self.assertRaises(PosNoExistenteException):
+            tablero.get_point(30)  
+
+    def test_obtener_bar_blanca_inicio(self): # verifica q el bar blanca este vacia al inicio
+        tablero = Tablero()
+        self.assertEqual(tablero.obtener_bar('B'), [])
+
 if __name__ == '__main__':
     unittest.main()
