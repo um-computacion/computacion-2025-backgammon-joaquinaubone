@@ -14,6 +14,12 @@ class TestTablero(unittest.TestCase):
         self.assertEqual(tablero.get_point(12), ['N'] * 5)
         self.assertEqual(tablero.get_point(7), ['N'] * 3)
         self.assertEqual(tablero.get_point(5), ['N'] * 5)
+
+    def test_get_point_valido(self): 
+        tablero = Tablero()
+        tablero.setup()
+        punto = tablero.get_point(0)
+        self.assertIsInstance(punto, list)
         
-if __name__ == '_main_':
+if __name__ == '__main__':
     unittest.main()
