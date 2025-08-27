@@ -23,10 +23,10 @@ class Tablero:
     def mostrar(self): 
         print("Tablero:")
         print(self._contenedor_)
-        print(f"Barra Blancas: {self._bar_blanco_}")
-        print(f"Barra Negras: {self._bar_negro_}")
-        print(f"Borneadas Blancas: {self._off_blanco_}")
-        print(f"Borneadas Negras: {self._off_negro_}")
+        print(f"Barra Blancas: {self.__bar_blanco__}")
+        print(f"Barra Negras: {self.__bar_negro__}")
+        print(f"Borneadas Blancas: {self.__off_blanco__}")
+        print(f"Borneadas Negras: {self.__off_negro__}")
 
     def get_point(self, indice):
         if 0 <= indice < len(self.__contenedor__):
@@ -49,4 +49,4 @@ class Tablero:
             return self.__off_negro__
         else:
             raise ValueError("Color no válido. Use B para blanco o N para negro")
-        
+            
