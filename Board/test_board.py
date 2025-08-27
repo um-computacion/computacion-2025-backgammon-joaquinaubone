@@ -29,6 +29,23 @@ class TestTablero(unittest.TestCase):
     def test_obtener_bar_blanca_inicio(self): # verifica q el bar blanca este vacia al inicio
         tablero = Tablero()
         self.assertEqual(tablero.obtener_bar('B'), [])
+    
+    def test_obtener_bar_negra(self): # verifica q el bar negra este vacia al inicio
+        tablero = Tablero()
+        self.assertEqual(tablero.obtener_bar('N'), [])
+
+    def test_obtener_bar_color_invalido(self): # verifica q si se pide un color invalido, se tire error
+        tablero = Tablero()
+        with self.assertRaises(ValueError):
+            tablero.obtener_bar('X')
+
+    def test_obtener_off_blanca(self): # verifica q el off blanca este vacia al inicio
+        tablero = Tablero()
+        self.assertEqual(tablero.obtener_off('B'), [])
+
+    def test_obtener_off_negra(self): # verifica q el off negra este vacia al inicio
+        tablero = Tablero()
+        self.assertEqual(tablero.obtener_off('N'), [])
 
 if __name__ == '__main__':
     unittest.main()
