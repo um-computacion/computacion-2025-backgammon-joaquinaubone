@@ -1,2 +1,5 @@
 __pycache__/
-.ds_store
+.DS_store
+.coverage
+coverage.xml
+venv/
