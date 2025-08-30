@@ -16,3 +16,10 @@
 
 - Implementación inicial de clase `Dice` con método `tirar()`,que genera dos valores aleatorios entre 1 y 6.
 - Test unitario `test_tirar_devuelve_dos_valores` para verificar que se generen correctamente dos valores válidos.
+
+### 2025-08-30
+#### Agregado
+- Método `resetear()` en clase `Dice`: limpia los valores disponibles al finalizar el turno.
+- Método `sin_valores()` en clase `Dice`: indica si ya no quedan valores disponibles.
+- Test unitario `test_resetear_limpia_valores` para verificar que se vacía correctamente la lista de dados.
+- Test unitario `test_sin_valores_devuelve_true_si_vacio` para verificar el comportamiento esperado antes y después de tirar/resetear.
