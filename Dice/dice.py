@@ -13,3 +13,9 @@ class Dice:
     
     def obtener_valores(self): 
         return self.__values__
+    
+    def resetear(self):  # elimina todos los valores disponibles (usado al final del turno)
+        self.__values__ = []
+
+    def sin_valores(self):  # saber si quedan valores disponibles
+        return len(self.__values__) == 0
