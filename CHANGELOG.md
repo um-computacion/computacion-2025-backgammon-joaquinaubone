@@ -23,3 +23,9 @@
 - Método `sin_valores()` en clase `Dice`: indica si ya no quedan valores disponibles.
 - Test unitario `test_resetear_limpia_valores` para verificar que se vacía correctamente la lista de dados.
 - Test unitario `test_sin_valores_devuelve_true_si_vacio` para verificar el comportamiento esperado antes y después de tirar/resetear.
+
+### 2025-08-31
+#### Modificado
+- Corregido método `mostrar()` en `Board`
+- Agregado test `test_mostrar_no_falla()` para verificar que el método `mostrar()`
+- Agregado test `test_obtener_off_color_invalido()` para cubrir el manejo de colores inválidos en `obtener_off()`.
