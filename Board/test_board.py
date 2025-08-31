@@ -38,6 +38,11 @@ class TestTablero(unittest.TestCase):
         tablero = Tablero()
         with self.assertRaises(ValueError):
             tablero.obtener_bar('X')
+    
+    def test_obtener_off_color_invalido(self):
+        tablero = Tablero()
+        with self.assertRaises(ValueError):
+            tablero.obtener_off('X')
 
     def test_obtener_off_blanca(self): # verifica q el off blanca este vacia al inicio
         tablero = Tablero()
@@ -46,6 +51,14 @@ class TestTablero(unittest.TestCase):
     def test_obtener_off_negra(self): # verifica q el off negra este vacia al inicio
         tablero = Tablero()
         self.assertEqual(tablero.obtener_off('N'), [])
+
+    def test_mostrar_no_falla(self):
+        tablero = Tablero()
+        tablero.setup()
+        try:
+            tablero.mostrar()
+        except Exception as e:
+            self.fail(f"mostrar() lanzó una excepción: {e}")
 
 if __name__ == '__main__':
     unittest.main()

@@ -22,7 +22,7 @@ class Tablero:
 
     def mostrar(self): 
         print("Tablero:")
-        print(self._contenedor_)
+        print(self.__contenedor__)
         print(f"Barra Blancas: {self.__bar_blanco__}")
         print(f"Barra Negras: {self.__bar_negro__}")
         print(f"Borneadas Blancas: {self.__off_blanco__}")
