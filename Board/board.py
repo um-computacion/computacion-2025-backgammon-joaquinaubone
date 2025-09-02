@@ -49,4 +49,9 @@ class Tablero:
             return self.__off_negro__
         else:
             raise ValueError("Color no válido. Use B para blanco o N para negro")
+        
+    def interpretar_tirada(self, dado1, dado2):
+        if dado1 == dado2:
+            return [dado1] * 4
+        return [dado1, dado2]
             

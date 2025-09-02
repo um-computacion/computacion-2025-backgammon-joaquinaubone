@@ -29,3 +29,8 @@
 - Corregido método `mostrar()` en `Board`
 - Agregado test `test_mostrar_no_falla()` para verificar que el método `mostrar()`
 - Agregado test `test_obtener_off_color_invalido()` para cubrir el manejo de colores inválidos en `obtener_off()`.
+
+### 2025-08-31
+#### Agregado
+- Método `interpretar_dados()` en la clase `Tablero` para procesar tiradas de dados.
+- Test para verificar el comportamiento con dobles y dados distintos.

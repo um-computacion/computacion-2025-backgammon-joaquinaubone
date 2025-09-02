@@ -59,6 +59,16 @@ class TestTablero(unittest.TestCase):
             tablero.mostrar()
         except Exception as e:
             self.fail(f"mostrar() lanzó una excepción: {e}")
+    
+    def test_interpretar_tirada_no_doble(self):
+        tablero = Tablero()
+        resultado = tablero.interpretar_tirada(3, 5)
+        self.assertEqual(resultado, [3, 5])
+    
+    def test_interpretar_tirada_doble(self):
+        tablero = Tablero()
+        resultado = tablero.interpretar_tirada(4, 4)
+        self.assertEqual(resultado, [4, 4, 4, 4])
 
 if __name__ == '__main__':
     unittest.main()
