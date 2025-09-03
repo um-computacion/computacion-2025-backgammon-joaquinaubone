@@ -34,3 +34,8 @@
 #### Agregado
 - Método `interpretar_dados()` en la clase `Tablero` para procesar tiradas de dados.
 - Test para verificar el comportamiento con dobles y dados distintos.
+
+### 2025-09-03
+#### Agregado
+- Clase `Player` con método `obtener_color()` para determinar el color del jugador.
+- Tests unitarios `test_color_blanco()` y `test_color_negro()` en `test_player.py`.
