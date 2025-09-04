@@ -42,9 +42,21 @@
 
 ### 2025-09-03
 
-#### 🔧 Configuración
+#### Configuración
 
 - Se implementó **Pylint** para control de calidad del código.
   - Se creó archivo `.pylintrc` con límites personalizados 
 - Se actualizó `requirements.txt` para incluir:
   - `pylint` y otras librerías 
+
+  ### 2025-09-04
+
+#### Funcionalidad nueva
+
+- Se agregó la clase `Ficha` para representar una ficha del juego de Backgammon.
+  - Atributo: `color`
+  - Métodos:
+    - `obtener_color()`: retorna el color de la ficha.
+- Se agregó el archivo `test_ficha.py` con tests unitarios que verifican:
+  - La creación de fichas blancas y negras.
+  - La correcta obtención del color.
