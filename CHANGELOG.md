@@ -66,3 +66,12 @@
 
 	-  Se implementa el método para alternar entre los turnos 'B' (blancas) y 'N' (negras).
 	-  Se agrega test unitario para verificar el correcto funcionamiento del cambio de turno.
+
+  ## 2025-09-05
+  ### Agregado
+
+- `__es_movimiento_fuera_de_tablero(color, destino)`: función auxiliar que verifica si el movimiento propuesto sale del tablero según el color del jugador.
+
+- `puede_sacar_ficha(color)`: nueva función que determina si el jugador tiene todas sus fichas en el ultimo cuarto y, por lo tanto, puede comenzar a sacar fichas.
+
+- `gano(color)`: función que verifica si el jugador ya saco las 15 fichas y, por lo tanto, ganó la partida.
