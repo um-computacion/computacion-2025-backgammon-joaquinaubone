@@ -55,3 +55,29 @@ class Tablero:
             return [dado1] * 4
         return [dado1, dado2]
             
+    def __es_movimiento_valido(self, casilla, color):
+        return (
+            not casilla                         # casilla vacía
+            or casilla[-1] == color             # última ficha del mismo color
+            or len(casilla) == 1                # solo una ficha rival
+        )
+
+    def __es_movimiento_fuera_de_tablero(self, color, destino):
+        return (color == 'B' and destino >= 24) or (color == 'N' and destino < 0)
+
+    def puede_sacar_ficha(self, color):
+        if color == 'B':
+            rango_prohibido = range(0, 18)  
+        else:
+            rango_prohibido = range(6, 24)
+        for i in rango_prohibido:
+            if self.__contenedor__[i] and self.__contenedor__[i][-1] == color:
+                return False
+        return True
+    
+    def gano(self, color):
+        if color == 'B':
+            return len(self.__off_blanco__) == 15
+        elif color == 'N':
+            return len(self.__off_negro__) == 15
+        return False
