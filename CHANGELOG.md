@@ -60,3 +60,9 @@
 - Se agregó el archivo `test_ficha.py` con tests unitarios que verifican:
   - La creación de fichas blancas y negras.
   - La correcta obtención del color.
+
+  ## 2025-09-04 
+  ## agregado
+
+	-  Se implementa el método para alternar entre los turnos 'B' (blancas) y 'N' (negras).
+	-  Se agrega test unitario para verificar el correcto funcionamiento del cambio de turno.
