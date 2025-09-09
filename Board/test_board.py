@@ -70,5 +70,52 @@ class TestTablero(unittest.TestCase):
         resultado = tablero.interpretar_tirada(4, 4)
         self.assertEqual(resultado, [4, 4, 4, 4])
 
+    def test_es_movimiento_valido_casilla_vacia(self):
+        self.assertTrue(self.tablero._Tablero__es_movimiento_valido([], 'B'))
+
+    def test_es_movimiento_valido_mismo_color(self):
+        self.assertTrue(self.tablero._Tablero__es_movimiento_valido(['B'], 'B'))
+
+    def test_es_movimiento_valido_una_ficha_rival(self):
+        self.assertTrue(self.tablero._Tablero__es_movimiento_valido(['N'], 'B'))
+
+    def test_es_movimiento_invalido_varias_fichas_rivales(self):
+        self.assertFalse(self.tablero._Tablero__es_movimiento_valido(['N', 'N'], 'B'))
+
+    def test_es_movimiento_fuera_de_tablero_blancas(self):
+        self.assertTrue(self.tablero._Tablero__es_movimiento_fuera_de_tablero('B', 25))
+
+    def test_es_movimiento_fuera_de_tablero_negras(self):
+        self.assertTrue(self.tablero._Tablero__es_movimiento_fuera_de_tablero('N', -1))
+
+    def test_puede_sacar_ficha_false(self):
+        # Aún hay fichas fuera del último cuarto para blancas
+        self.assertFalse(self.tablero.puede_sacar_ficha('B'))
+
+    def test_puede_sacar_ficha_true(self):
+        # Simular que blancas tienen todas sus fichas en el último cuarto (18–23)
+        self.tablero = Tablero()
+        self.tablero._Tablero__contenedor__ = [[] for _ in range(24)]
+        self.tablero._Tablero__contenedor__[18] = ['B'] * 15
+        self.assertTrue(self.tablero.puede_sacar_ficha('B'))
+
+    def test_gano_true_blancas(self):
+        self.tablero._Tablero__off_blanco__ = ['B'] * 15
+        self.assertTrue(self.tablero.gano('B'))
+
+    def test_gano_false_blancas(self):
+        self.tablero._Tablero__off_blanco__ = ['B'] * 14
+        self.assertFalse(self.tablero.gano('B'))
+
+    def test_gano_true_negras(self):
+        self.tablero._Tablero__off_negro__ = ['N'] * 15
+        self.assertTrue(self.tablero.gano('N'))
+
+    def test_gano_false_negras(self):
+        self.tablero._Tablero__off_negro__ = ['N'] * 10
+        self.assertFalse(self.tablero.gano('N'))
+      
+        
+
 if __name__ == '__main__':
     unittest.main()
