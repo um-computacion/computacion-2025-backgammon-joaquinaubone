@@ -75,3 +75,11 @@
 - `puede_sacar_ficha(color)`: nueva función que determina si el jugador tiene todas sus fichas en el ultimo cuarto y, por lo tanto, puede comenzar a sacar fichas.
 
 - `gano(color)`: función que verifica si el jugador ya saco las 15 fichas y, por lo tanto, ganó la partida.
+
+## 2025-09-07
+## agregado
+
+	- test_es_movimiento_valido_*: Verifican la validez de distintos estados de una casilla destino.
+	- test_es_movimiento_fuera_de_tablero_*: Evalúan si el destino está fuera del rango permitido según el color.
+	- test_puede_sacar_ficha_true / false: Comprueban si un jugador puede comenzar a sacar fichas (bornear).
+	- test_gano_true / false: Verifican la condición de victoria para blancos y negros.
