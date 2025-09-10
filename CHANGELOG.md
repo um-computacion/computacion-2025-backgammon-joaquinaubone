@@ -83,3 +83,16 @@
 	- test_es_movimiento_fuera_de_tablero_*: Evalúan si el destino está fuera del rango permitido según el color.
 	- test_puede_sacar_ficha_true / false: Comprueban si un jugador puede comenzar a sacar fichas (bornear).
 	- test_gano_true / false: Verifican la condición de victoria para blancos y negros.
+
+## 2025-09-06
+### Agregado
+
+- `mover(origen, pasos, color)`: función principal para ejecutar un movimiento de una ficha desde una posición de origen (o la barra) hacia una posición de destino, manejando golpes, borneado y validaciones de reglas.
+
+- `__sacar_de_barra(color, pasos)`: función auxiliar que remueve una ficha desde la barra correspondiente y calcula el destino según el color y valor del dado.
+
+- `__sacar_de_tablero(origen, pasos, color)`: función auxiliar que remueve una ficha desde el tablero, validando que el origen pertenezca al jugador y calculando su destino según el color.
+
+- `__agregar_a_off(color, ficha)`: función auxiliar para agregar una ficha a la zona de borneado del color correspondiente.
+
+- `__mover_a_destino(destino, ficha, color)`: función auxiliar que maneja el movimiento a la casilla de destino, incluyendo validación de casillas ocupadas y envío al bar en caso de golpe.
