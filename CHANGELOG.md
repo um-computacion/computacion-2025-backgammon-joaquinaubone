@@ -109,3 +109,11 @@
 - Método auxiliar privado `__puede_salir_de_barra(color, valores_dado)`, que evalúa si alguna ficha en la barra puede volver al tablero usando los valores de dado actuales.
 
 - Método auxiliar privado `__puede_mover_ficha_en_tablero(color, valores_dado, direccion)`, que determina si alguna ficha en el tablero puede moverse legalmente, incluyendo borneado si corresponde.
+
+## 2025-09-10
+### Agregado
+
+- Test `test_movimiento_valido_en_casilla_vacia`: verifica que una casilla vacía sea considerada válida para mover una ficha.
+- Test `test_movimiento_valido_misma_ficha`: verifica que una ficha pueda moverse a una casilla ocupada por una ficha del mismo color.
+- Test `test_movimiento_valido_una_ficha_oponente`: verifica que se permita mover a una casilla con una sola ficha del rival (golpe).
+- Test `test_movimiento_invalido_varias_fichas_oponente`: verifica que no se permita mover a una casilla ocupada por 2 o más fichas del rival.

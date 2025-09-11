@@ -114,6 +114,19 @@ class TestTablero(unittest.TestCase):
     def test_gano_false_negras(self):
         self.tablero._Tablero__off_negro__ = ['N'] * 10
         self.assertFalse(self.tablero.gano('N'))
+    
+    def test_movimiento_valido_en_casilla_vacia(self):
+        self.assertTrue(self.tablero._Tablero__es_movimiento_valido([], 'B'))
+
+    def test_movimiento_valido_misma_ficha(self):
+        self.assertTrue(self.tablero._Tablero__es_movimiento_valido(['B'], 'B'))
+
+    def test_movimiento_valido_una_ficha_oponente(self):
+        self.assertTrue(self.tablero._Tablero__es_movimiento_valido(['N'], 'B'))
+
+    def test_movimiento_invalido_varias_fichas_oponente(self):
+        self.assertFalse(self.tablero._Tablero__es_movimiento_valido(['N', 'N'], 'B'))
+
       
         
 
