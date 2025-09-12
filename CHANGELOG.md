@@ -117,3 +117,10 @@
 - Test `test_movimiento_valido_misma_ficha`: verifica que una ficha pueda moverse a una casilla ocupada por una ficha del mismo color.
 - Test `test_movimiento_valido_una_ficha_oponente`: verifica que se permita mover a una casilla con una sola ficha del rival (golpe).
 - Test `test_movimiento_invalido_varias_fichas_oponente`: verifica que no se permita mover a una casilla ocupada por 2 o más fichas del rival.
+
+## 2025-09-10
+### Agregado
+
+- Test `test_movimiento_fuera_de_tablero_blanco`: verifica que un destino mayor o igual a 24 sea considerado fuera del tablero para las fichas blancas.
+- Test `test_movimiento_fuera_de_tablero_negro`: verifica que un destino menor a 0 sea considerado fuera del tablero para las fichas negras.
+- Test `test_movimiento_dentro_de_tablero`: verifica que un destino válido (dentro del rango 0-23) no sea considerado fuera del tablero.

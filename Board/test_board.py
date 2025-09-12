@@ -127,7 +127,15 @@ class TestTablero(unittest.TestCase):
     def test_movimiento_invalido_varias_fichas_oponente(self):
         self.assertFalse(self.tablero._Tablero__es_movimiento_valido(['N', 'N'], 'B'))
 
-      
+    def test_movimiento_fuera_de_tablero_blanco(self):
+        self.assertTrue(self.tablero._Tablero__es_movimiento_fuera_de_tablero('B', 24))
+
+    def test_movimiento_fuera_de_tablero_negro(self):
+        self.assertTrue(self.tablero._Tablero__es_movimiento_fuera_de_tablero('N', -1))
+
+    def test_movimiento_dentro_de_tablero(self):
+        self.assertFalse(self.tablero._Tablero__es_movimiento_fuera_de_tablero('B', 5))
+
         
 
 if __name__ == '__main__':
