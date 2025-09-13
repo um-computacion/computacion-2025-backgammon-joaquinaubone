@@ -136,6 +136,25 @@ class TestTablero(unittest.TestCase):
     def test_movimiento_dentro_de_tablero(self):
         self.assertFalse(self.tablero._Tablero__es_movimiento_fuera_de_tablero('B', 5))
 
+    def test_puede_sacar_ficha_false(self):
+        self.assertFalse(self.tablero.puede_sacar_ficha('B'))  # Aún hay fichas fuera del cuarto
+
+    def test_puede_sacar_ficha_true(self):
+        tablero = Tablero()
+        tablero._Tablero__contenedor__ = [[] for _ in range(24)]
+        tablero._Tablero__contenedor__[20] = ['B'] * 15
+        self.assertTrue(tablero.puede_sacar_ficha('B'))
+
+    def test_gano_blanco(self):
+        self.tablero._Tablero__off_blanco__ = ['B'] * 15
+        self.assertTrue(self.tablero.gano('B'))
+
+    def test_gano_negro(self):
+        self.tablero._Tablero__off_negro__ = ['N'] * 15
+        self.assertTrue(self.tablero.gano('N'))
+
+    def test_no_gano(self):
+        self.assertFalse(self.tablero.gano('B'))
         
 
 if __name__ == '__main__':

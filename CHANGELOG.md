@@ -124,3 +124,13 @@
 - Test `test_movimiento_fuera_de_tablero_blanco`: verifica que un destino mayor o igual a 24 sea considerado fuera del tablero para las fichas blancas.
 - Test `test_movimiento_fuera_de_tablero_negro`: verifica que un destino menor a 0 sea considerado fuera del tablero para las fichas negras.
 - Test `test_movimiento_dentro_de_tablero`: verifica que un destino válido (dentro del rango 0-23) no sea considerado fuera del tablero.
+
+## 2025-09-10
+### Agregado
+
+- Test `test_puede_sacar_ficha_false`: verifica que un jugador no puede sacar ficha si aún tiene fichas fuera del último cuarto del tablero.
+- Test `test_puede_sacar_ficha_true`: verifica que un jugador pueda sacar ficha si todas sus fichas están en el último cuarto.
+
+- Test `test_gano_blanco`: verifica que el jugador blanco gane cuando tiene 15 fichas borneadas.
+- Test `test_gano_negro`: verifica que el jugador negro gane cuando tiene 15 fichas borneadas.
+- Test `test_no_gano`: verifica que si no se alcanzan las 15 fichas borneadas, el método `gano()` retorne `False`.
