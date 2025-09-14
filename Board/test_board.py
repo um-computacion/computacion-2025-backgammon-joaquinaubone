@@ -155,6 +155,19 @@ class TestTablero(unittest.TestCase):
 
     def test_no_gano(self):
         self.assertFalse(self.tablero.gano('B'))
+    
+    def test_hay_movimiento_posible_desde_tablero(self):
+        self.assertTrue(self.tablero.hay_movimientos_posibles('B', [1, 2]))
+
+    def test_hay_movimiento_posible_desde_barra(self):
+        self.tablero.obtener_bar('B').append('B')
+        self.tablero._Tablero__contenedor__[0] = []
+        self.assertTrue(self.tablero.hay_movimientos_posibles('B', [1]))
+
+    def test_no_hay_movimiento_posible(self):
+        tablero = Tablero()
+        tablero._Tablero__contenedor__ = [[] for _ in range(24)]
+        self.assertFalse(tablero.hay_movimientos_posibles('B', [1, 2]))
         
 
 if __name__ == '__main__':

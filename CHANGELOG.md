@@ -134,3 +134,12 @@
 - Test `test_gano_blanco`: verifica que el jugador blanco gane cuando tiene 15 fichas borneadas.
 - Test `test_gano_negro`: verifica que el jugador negro gane cuando tiene 15 fichas borneadas.
 - Test `test_no_gano`: verifica que si no se alcanzan las 15 fichas borneadas, el método `gano()` retorne `False`.
+
+## 2025-09-10
+### Agregado
+
+- Test `test_hay_movimiento_posible_desde_tablero`: verifica que existan movimientos posibles para el jugador blanco cuando tiene fichas en el tablero y valores de dado válidos.
+
+- Test `test_hay_movimiento_posible_desde_barra`: simula una ficha en la barra y verifica que se pueda realizar un movimiento desde ahí.
+
+- Test `test_no_hay_movimiento_posible`: asegura que cuando no hay fichas en el tablero ni en la barra, no haya movimientos posibles.
