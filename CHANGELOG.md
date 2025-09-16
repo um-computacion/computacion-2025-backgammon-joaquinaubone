@@ -143,3 +143,25 @@
 - Test `test_hay_movimiento_posible_desde_barra`: simula una ficha en la barra y verifica que se pueda realizar un movimiento desde ahí.
 
 - Test `test_no_hay_movimiento_posible`: asegura que cuando no hay fichas en el tablero ni en la barra, no haya movimientos posibles.
+
+## 2025-09-16
+### Agregado
+
+- Test `test_sacar_de_barra_blancas`: verifica que una ficha blanca se retire correctamente de la barra y se calcule bien su destino.
+- Test `test_sacar_de_barra_negras`: verifica lo mismo para una ficha negra.
+- Test `test_sacar_de_tablero_blancas`: asegura que una ficha blanca se retire correctamente de una casilla del tablero y se calcule el destino.
+- Test `test_sacar_de_tablero_negras`: igual que el anterior pero para negras.
+- Test `test_sacar_de_tablero_sin_fichas`: verifica que se lance un error si se intenta sacar una ficha de una casilla vacía.
+- Test `test_calcular_destino_desde_barra_blanco`: comprueba el cálculo correcto del destino desde barra para blancas.
+- Test `test_calcular_destino_desde_barra_negro`: igual que el anterior pero para negras.
+- Test `test_obtener_direccion_negro`: asegura que se devuelve `-1` para negras.
+- Test `test_obtener_direccion_blanco`: asegura que se devuelve `1` para blancas.
+- Test `test_puede_mover_ficha_en_tablero_true`: verifica que se detecte un movimiento posible si lo hay.
+- Test `test_puede_mover_ficha_en_tablero_false`: asegura que se devuelve `False` si no hay movimientos posibles.
+- Test `test_agregar_a_off_blanco`: comprueba que se agrega una ficha blanca al área de borneadas.
+- Test `test_agregar_a_off_negro`: igual que el anterior pero con fichas negras.
+- Test `test_mover_color_invalido`: asegura que se lanza un error si se pasa un color inválido.
+- Test `test_mover_con_ficha_en_barra_y_origen_distinto_de_cero`: verifica que no se puede mover una ficha del tablero si hay fichas en la barra.
+- Test `test_mover_desde_barra_blanca`: prueba que se mueva correctamente una ficha blanca desde la barra.
+- Test `test_mover_fuera_de_tablero_sin_poder_bornear`: asegura que se lanza un error si se intenta bornear sin condiciones válidas.
+- Test `test_puede_sacar_ficha_inicio_negras`: comprueba que negras no pueden bornear al inicio de la partida.
