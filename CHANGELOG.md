@@ -109,3 +109,59 @@
 - Método auxiliar privado `__puede_salir_de_barra(color, valores_dado)`, que evalúa si alguna ficha en la barra puede volver al tablero usando los valores de dado actuales.
 
 - Método auxiliar privado `__puede_mover_ficha_en_tablero(color, valores_dado, direccion)`, que determina si alguna ficha en el tablero puede moverse legalmente, incluyendo borneado si corresponde.
+
+## 2025-09-10
+### Agregado
+
+- Test `test_movimiento_valido_en_casilla_vacia`: verifica que una casilla vacía sea considerada válida para mover una ficha.
+- Test `test_movimiento_valido_misma_ficha`: verifica que una ficha pueda moverse a una casilla ocupada por una ficha del mismo color.
+- Test `test_movimiento_valido_una_ficha_oponente`: verifica que se permita mover a una casilla con una sola ficha del rival (golpe).
+- Test `test_movimiento_invalido_varias_fichas_oponente`: verifica que no se permita mover a una casilla ocupada por 2 o más fichas del rival.
+
+## 2025-09-10
+### Agregado
+
+- Test `test_movimiento_fuera_de_tablero_blanco`: verifica que un destino mayor o igual a 24 sea considerado fuera del tablero para las fichas blancas.
+- Test `test_movimiento_fuera_de_tablero_negro`: verifica que un destino menor a 0 sea considerado fuera del tablero para las fichas negras.
+- Test `test_movimiento_dentro_de_tablero`: verifica que un destino válido (dentro del rango 0-23) no sea considerado fuera del tablero.
+
+## 2025-09-10
+### Agregado
+
+- Test `test_puede_sacar_ficha_false`: verifica que un jugador no puede sacar ficha si aún tiene fichas fuera del último cuarto del tablero.
+- Test `test_puede_sacar_ficha_true`: verifica que un jugador pueda sacar ficha si todas sus fichas están en el último cuarto.
+
+- Test `test_gano_blanco`: verifica que el jugador blanco gane cuando tiene 15 fichas borneadas.
+- Test `test_gano_negro`: verifica que el jugador negro gane cuando tiene 15 fichas borneadas.
+- Test `test_no_gano`: verifica que si no se alcanzan las 15 fichas borneadas, el método `gano()` retorne `False`.
+
+## 2025-09-10
+### Agregado
+
+- Test `test_hay_movimiento_posible_desde_tablero`: verifica que existan movimientos posibles para el jugador blanco cuando tiene fichas en el tablero y valores de dado válidos.
+
+- Test `test_hay_movimiento_posible_desde_barra`: simula una ficha en la barra y verifica que se pueda realizar un movimiento desde ahí.
+
+- Test `test_no_hay_movimiento_posible`: asegura que cuando no hay fichas en el tablero ni en la barra, no haya movimientos posibles.
+
+## 2025-09-16
+### Agregado
+
+- Test `test_sacar_de_barra_blancas`: verifica que una ficha blanca se retire correctamente de la barra y se calcule bien su destino.
+- Test `test_sacar_de_barra_negras`: verifica lo mismo para una ficha negra.
+- Test `test_sacar_de_tablero_blancas`: asegura que una ficha blanca se retire correctamente de una casilla del tablero y se calcule el destino.
+- Test `test_sacar_de_tablero_negras`: igual que el anterior pero para negras.
+- Test `test_sacar_de_tablero_sin_fichas`: verifica que se lance un error si se intenta sacar una ficha de una casilla vacía.
+- Test `test_calcular_destino_desde_barra_blanco`: comprueba el cálculo correcto del destino desde barra para blancas.
+- Test `test_calcular_destino_desde_barra_negro`: igual que el anterior pero para negras.
+- Test `test_obtener_direccion_negro`: asegura que se devuelve `-1` para negras.
+- Test `test_obtener_direccion_blanco`: asegura que se devuelve `1` para blancas.
+- Test `test_puede_mover_ficha_en_tablero_true`: verifica que se detecte un movimiento posible si lo hay.
+- Test `test_puede_mover_ficha_en_tablero_false`: asegura que se devuelve `False` si no hay movimientos posibles.
+- Test `test_agregar_a_off_blanco`: comprueba que se agrega una ficha blanca al área de borneadas.
+- Test `test_agregar_a_off_negro`: igual que el anterior pero con fichas negras.
+- Test `test_mover_color_invalido`: asegura que se lanza un error si se pasa un color inválido.
+- Test `test_mover_con_ficha_en_barra_y_origen_distinto_de_cero`: verifica que no se puede mover una ficha del tablero si hay fichas en la barra.
+- Test `test_mover_desde_barra_blanca`: prueba que se mueva correctamente una ficha blanca desde la barra.
+- Test `test_mover_fuera_de_tablero_sin_poder_bornear`: asegura que se lanza un error si se intenta bornear sin condiciones válidas.
+- Test `test_puede_sacar_ficha_inicio_negras`: comprueba que negras no pueden bornear al inicio de la partida.
