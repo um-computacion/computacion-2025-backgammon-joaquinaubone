@@ -1,9 +1,26 @@
 from Dice.dice import Dado
 from Board.board import Tablero
+from Player.player import Player
 
 class Juego:
-    def __init__(self):
-        self.turno = 'B'  # Blanco empieza
+    def __init__(self, tablero, dados, jugador_blanco, jugador_negro):
+        self.tablero = tablero
+        self.turno_actual = 'B'  # Blanco empieza
+        self.dados = dados
+        self.jugadores = {'B': jugador_blanco, 'N': jugador_negro}
 
-    def cambiar_turno(self):
-        self.turno = 'B' if self.turno == 'N' else 'N'
+
+    def cambiar_turno(self): #maneja cambios de turno
+        if self.turno == 'N':
+            self.turno = 'B'  
+        else:
+            self.turno = "N"
+    
+    def obtener_jugador_actual(self):   # Devuelve el jugador que tiene el turno actual
+        return self.jugadores[self.turno_actual]
+
+    def verificar_fin_del_juego(self):  # Verifica si el jugador actual ha ganado
+        return self.tablero.gano(self.turno_actual)
+
+    def hay_movimientos_disponibles(self, tirada):  # Verifica si hay movimientos disponibles para el jugador actual
+        return self.tablero.hay_movimientos_posibles(self.turno_actual, tirada)

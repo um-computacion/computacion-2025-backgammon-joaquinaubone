@@ -165,3 +165,12 @@
 - Test `test_mover_desde_barra_blanca`: prueba que se mueva correctamente una ficha blanca desde la barra.
 - Test `test_mover_fuera_de_tablero_sin_poder_bornear`: asegura que se lanza un error si se intenta bornear sin condiciones válidas.
 - Test `test_puede_sacar_ficha_inicio_negras`: comprueba que negras no pueden bornear al inicio de la partida.
+
+## 2025-09-16
+### Agregado
+
+- Clase `Juego` que representa el controlador principal del juego.
+- Método `__init__`: inicializa el juego con el tablero, dados y jugadores.
+- Método `obtener_jugador_actual`: devuelve el jugador correspondiente al turno actual.
+- Método `verificar_fin_del_juego`: determina si el jugador actual ha ganado.
+- Método `hay_movimientos_disponibles`: verifica si hay jugadas posibles con la tirada actual.
