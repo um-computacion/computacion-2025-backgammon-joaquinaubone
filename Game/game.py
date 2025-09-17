@@ -24,3 +24,9 @@ class Juego:
 
     def hay_movimientos_disponibles(self, tirada):  # Verifica si hay movimientos disponibles para el jugador actual
         return self.tablero.hay_movimientos_posibles(self.turno_actual, tirada)
+
+    def intentar_jugada(self, origen, pasos):# Intenta realizar una jugada, lanza excepción si falla
+        self.tablero.mover(origen, pasos, self.turno_actual)
+
+    def interpretar_tirada(self, dado1, dado2): # Interpreta una tirada (dobles o normales)
+        return self.tablero.interpretar_tirada(dado1, dado2)

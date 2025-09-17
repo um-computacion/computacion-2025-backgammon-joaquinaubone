@@ -174,3 +174,9 @@
 - Método `obtener_jugador_actual`: devuelve el jugador correspondiente al turno actual.
 - Método `verificar_fin_del_juego`: determina si el jugador actual ha ganado.
 - Método `hay_movimientos_disponibles`: verifica si hay jugadas posibles con la tirada actual.
+
+## 2025-09-16
+### Agregado
+
+- Método `intentar_jugada`: permite ejecutar un movimiento desde una posición con determinada cantidad de pasos para el jugador actual. Lanza excepción si no es válido.
+- Método `interpretar_tirada`: interpreta una tirada de dados usando la lógica de la clase `Tablero`, devolviendo una lista de valores (doble o normal).
