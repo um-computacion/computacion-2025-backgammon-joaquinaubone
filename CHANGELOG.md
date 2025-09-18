@@ -135,7 +135,7 @@
 - Test `test_gano_negro`: verifica que el jugador negro gane cuando tiene 15 fichas borneadas.
 - Test `test_no_gano`: verifica que si no se alcanzan las 15 fichas borneadas, el método `gano()` retorne `False`.
 
-## 2025-09-10
+## 2025-09-11
 ### Agregado
 
 - Test `test_hay_movimiento_posible_desde_tablero`: verifica que existan movimientos posibles para el jugador blanco cuando tiene fichas en el tablero y valores de dado válidos.
@@ -165,3 +165,24 @@
 - Test `test_mover_desde_barra_blanca`: prueba que se mueva correctamente una ficha blanca desde la barra.
 - Test `test_mover_fuera_de_tablero_sin_poder_bornear`: asegura que se lanza un error si se intenta bornear sin condiciones válidas.
 - Test `test_puede_sacar_ficha_inicio_negras`: comprueba que negras no pueden bornear al inicio de la partida.
+
+## 2025-09-17
+### Agregado
+
+- Clase `Juego` que representa el controlador principal del juego.
+- Método `__init__`: inicializa el juego con el tablero, dados y jugadores.
+- Método `obtener_jugador_actual`: devuelve el jugador correspondiente al turno actual.
+- Método `verificar_fin_del_juego`: determina si el jugador actual ha ganado.
+- Método `hay_movimientos_disponibles`: verifica si hay jugadas posibles con la tirada actual.
+
+## 2025-09-17
+### Agregado
+
+- Método `intentar_jugada`: permite ejecutar un movimiento desde una posición con determinada cantidad de pasos para el jugador actual. Lanza excepción si no es válido.
+- Método `interpretar_tirada`: interpreta una tirada de dados usando la lógica de la clase `Tablero`, devolviendo una lista de valores (doble o normal).
+
+## 2025-09-18
+### Agregado
+
+- Test `test_obtener_jugador_actual`: verifica que se obtenga correctamente el jugador correspondiente al turno actual.
+- Test `test_verificar_fin_del_juego_false`: comprueba que el juego no ha finalizado cuando aún ningún jugador ha ganado.
