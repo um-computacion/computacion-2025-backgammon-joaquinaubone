@@ -185,4 +185,11 @@
 ### Agregado
 
 - Test `test_obtener_jugador_actual`: verifica que se obtenga correctamente el jugador correspondiente al turno actual.
-- Test `test_verificar_fin_del_juego_false`: comprueba que el juego no ha finalizado cuando aún ningún jugador ha ganado.
+- Test `test_verificar_fin_del_juego_false`: comprueba que el juego no ha finalizado cuando aún ningún jugador ha ganado
+
+## 2025-09-18
+### Agregado
+
+- Test `test_hay_movimientos_disponibles_true`: verifica que se detecten movimientos disponibles cuando hay jugadas posibles.
+- Test `test_interpretar_tirada_no_doble`: verifica que una tirada normal (sin dobles) se interprete correctamente.
+- Test `test_interpretar_tirada_doble`: verifica que una tirada doble genere cuatro valores iguales.

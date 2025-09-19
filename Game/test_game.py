@@ -20,5 +20,17 @@ class TestJuego(unittest.TestCase):
         self.assertFalse(self.game.verificar_fin_del_juego())
 
 
+    def test_hay_movimientos_disponibles_true(self):
+        self.assertTrue(self.game.hay_movimientos_disponibles([1, 2]))
+
+    def test_interpretar_tirada_no_doble(self):
+        resultado = self.game.interpretar_tirada(3, 5)
+        self.assertEqual(resultado, [3, 5])
+
+    def test_interpretar_tirada_doble(self):
+        resultado = self.game.interpretar_tirada(4, 4)
+        self.assertEqual(resultado, [4, 4, 4, 4])
+
+
 if __name__ == '__main__':
     unittest.main()
