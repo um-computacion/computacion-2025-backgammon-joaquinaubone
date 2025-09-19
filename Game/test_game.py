@@ -30,6 +30,17 @@ class TestJuego(unittest.TestCase):
     def test_interpretar_tirada_doble(self):
         resultado = self.game.interpretar_tirada(4, 4)
         self.assertEqual(resultado, [4, 4, 4, 4])
+    
+    def test_intentar_jugada_valida(self):
+        self.game.intentar_jugada(0, 1)
+        self.assertEqual(self.tablero.get_point(1)[-1], 'B')
+
+    def test_intentar_jugada_invalida(self):
+        with self.assertRaises(ValueError):
+            self.game.intentar_jugada(5, 6)  # no es turno de negras
+
+
+
 
 
 if __name__ == '__main__':

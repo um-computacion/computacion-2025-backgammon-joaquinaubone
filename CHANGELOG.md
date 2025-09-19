@@ -193,3 +193,9 @@
 - Test `test_hay_movimientos_disponibles_true`: verifica que se detecten movimientos disponibles cuando hay jugadas posibles.
 - Test `test_interpretar_tirada_no_doble`: verifica que una tirada normal (sin dobles) se interprete correctamente.
 - Test `test_interpretar_tirada_doble`: verifica que una tirada doble genere cuatro valores iguales.
+
+## 2025-09-19
+### Agregado
+
+- Test `test_intentar_jugada_valida`: verifica que una jugada válida mueve correctamente una ficha en el tablero.
+- Test `test_intentar_jugada_invalida`: verifica que se lance un `ValueError` al intentar una jugada inválida (por ejemplo, movimiento que no corresponde al turno actual).
