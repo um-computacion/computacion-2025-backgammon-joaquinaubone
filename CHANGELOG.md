@@ -217,3 +217,13 @@
   - Muestra de quién es el turno actual.
   - Tira los dados y muestra el resultado.
   - Verifica si hay movimientos posibles; en caso contrario, pasa el turno.
+
+## 2025-09-25
+### Agregado
+- Manejo de jugadas dentro de un turno en la CLI:
+  - Muestra el estado actual del tablero y los valores de la tirada.
+  - Solicita al usuario la casilla de origen y los pasos a mover.
+  - Valida que el valor de los pasos esté en la tirada disponible.
+  - Fuerza mover fichas desde la barra si existen.
+  - Ejecuta la jugada en el tablero y actualiza la tirada.
+  - Maneja errores mediante `try/except`, mostrando mensajes claros al usuario.

@@ -15,3 +15,26 @@ def jugar(tablero, dados, jugador_blanco, jugador_negro):
             print("No hay movimientos posibles. Pierdes el turno.")
             juego.cambiar_turno()
             continue
+
+        while tirada:
+            print("\n📍 Estado actual del tablero:")
+            tablero.mostrar()
+            print(f"Valores disponibles: {tirada}")
+            try:
+                origen = int(input("Ingresá la casilla de origen (0 si estás en barra): "))
+                pasos = int(input("Ingresá la cantidad de pasos: "))
+
+                if pasos not in tirada:
+                    print("Ese valor no está en la tirada. Intentá con otro.")
+                    continue
+
+                if tablero.obtener_bar(color) and origen != 0:
+                    print("Tenés fichas en la barra. Primero debés moverlas (origen = 0).")
+                    continue
+
+                tablero.mover(origen, pasos, color)
+                tirada.remove(pasos)
+
+            except Exception as e:
+                print(f"Error: {e}")
+                continue
