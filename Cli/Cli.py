@@ -38,3 +38,9 @@ def jugar(tablero, dados, jugador_blanco, jugador_negro):
             except Exception as e:
                 print(f"Error: {e}")
                 continue
+        if tablero.gano(color):
+            break
+
+        juego.cambiar_turno()
+
+    print(f"\n🏆 ¡El jugador {juego.obtener_jugador_actual().obtener_color()} ha ganado!")

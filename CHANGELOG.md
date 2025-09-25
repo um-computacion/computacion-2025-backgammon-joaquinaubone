@@ -227,3 +227,10 @@
   - Fuerza mover fichas desde la barra si existen.
   - Ejecuta la jugada en el tablero y actualiza la tirada.
   - Maneja errores mediante `try/except`, mostrando mensajes claros al usuario.
+
+## 2025-09-25
+### Agregado
+- CLI: finalización del turno y del juego.
+  - Verifica si el jugador actual ganó luego de completar sus jugadas.
+  - Si no ganó, cambia el turno al otro jugador.
+  - Muestra en pantalla un mensaje de victoria cuando el jugador gana la partida.
