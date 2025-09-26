@@ -198,4 +198,4 @@
 ### Agregado
 
 - Test `test_intentar_jugada_valida`: verifica que una jugada válida mueve correctamente una ficha en el tablero.
-- Test `test_intentar_jugada_invalida`: verifica que se lance un `ValueError` al intentar una jugada inválida (por ejemplo, movimiento que no corresponde al turno actual).
+
