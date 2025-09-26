@@ -198,14 +198,4 @@
 ### Agregado
 
 - Test `test_intentar_jugada_valida`: verifica que una jugada válida mueve correctamente una ficha en el tablero.
-- Test `test_intentar_jugada_invalida`: verifica que se lance un `ValueError` al intentar una jugada inválida (por ejemplo, movimiento que no corresponde al turno actual).
 
-## 2025-09-23
-### Agregado
-
-- Archivo `main.py` con función `main()` para inicializar el juego.  
-- Creación de instancias de:
-  - `Tablero` con configuración inicial (`setup()`),
-  - `Dice` para gestionar los dados,
-  - `Player` para jugadores blanco y negro.  
-- Preparación del punto de entrada `if __name__ == '__main__':` para ejecutar el juego desde consola.
