@@ -198,4 +198,3 @@
 ### Agregado
 
 - Test `test_intentar_jugada_valida`: verifica que una jugada válida mueve correctamente una ficha en el tablero.
-
