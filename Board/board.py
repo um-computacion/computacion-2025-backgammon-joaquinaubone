@@ -101,7 +101,6 @@ class Tablero:
             else:
                 raise ValueError("No se puede mover fuera del tablero sin poder bornearse.")
             return
-
         self.__mover_a_destino(destino, ficha, color)
     
     def __sacar_de_barra(self, color, pasos):

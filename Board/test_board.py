@@ -85,7 +85,7 @@ class TestTablero(unittest.TestCase):
 
     def test_es_movimiento_invalido_varias_fichas_rivales(self):
         self.assertFalse(self.tablero._Tablero__es_movimiento_valido(['N', 'N'], 'B'))
-#aqui van los nuevos tests
+
 
     def test_es_movimiento_fuera_de_tablero_blancas(self):
         self.assertTrue(self.tablero._Tablero__es_movimiento_fuera_de_tablero('B', 25))
