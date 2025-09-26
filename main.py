@@ -11,5 +11,7 @@ def main():
     jugador_blanco = Player('B')
     jugador_negro = Player('N')
 
+    jugar(tablero, dados, jugador_blanco, jugador_negro)
+    
 if __name__ == '__main__':
     main()
