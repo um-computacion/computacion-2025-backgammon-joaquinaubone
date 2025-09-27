@@ -258,12 +258,20 @@
   - Si no ganó, cambia el turno al otro jugador.
   - Muestra en pantalla un mensaje de victoria cuando el jugador gana la partida.
 
-## 2025-09-18
+## 2025-09-26
 ### Agregado
 
 - Función `jugar(tablero, dados, jugador_blanco, jugador_negro)` en `cli.py`: gestiona el bucle principal del juego, mostrando el estado del tablero, turnos de los jugadores, tiradas de dados y controlando el flujo de la partida hasta determinar un ganador.
 
-## 2025-09-25
+## 2025-09-26
 ### Corregido
 - Se resolvieron conflictos en `CHANGELOG.md` ocasionados por un merge.
 - Se unificaron entradas duplicadas y se eliminó sintaxis conflictiva 
+
+## 2025-09-27
+### Agregado
+- Workflow `cli.yml` en `.github/workflows/` para generar reportes automáticos.  
+- Ejecución de tests con `coverage` y exportación en formatos `xml` y `txt`.  
+- Ejecución de `pylint` con configuración desde `.pylintrc` y guardado de reporte.  
+- Script automático `generate_reports.py` que combina los resultados en `REPORTS.md`.  
+- Pull request automático con los reportes actualizados al branch `main`.  
