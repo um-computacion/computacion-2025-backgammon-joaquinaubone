@@ -275,3 +275,9 @@
 - Ejecución de `pylint` con configuración desde `.pylintrc` y guardado de reporte.  
 - Script automático `generate_reports.py` que combina los resultados en `REPORTS.md`.  
 - Pull request automático con los reportes actualizados al branch `main`.  
+
+## 2025-09-30
+### Configuración
+
+- Se agregó archivo `.coveragerc` para personalizar la ejecución de Coverage.
+- Se configuró la opción `[run].omit` para excluir todos los archivos de tests (`test_*.py` y `tests/*`) de los reportes de cobertura.
