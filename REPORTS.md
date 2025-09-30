@@ -1,24 +1,19 @@
 # Automated Reports
 ## Coverage Report
 ```text
-Name                      Stmts   Miss  Cover   Missing
--------------------------------------------------------
-Board/__init__.py             0      0   100%
-Board/board.py              142     17    88%   99-103, 110, 114, 120, 124, 144-149, 175, 184-186
-Board/test_board.py         187      3    98%   27-28, 242
-Checker/__init__.py           0      0   100%
-Checker/checker.py            5      0   100%
-Checker/test_checker.py      11      1    91%   16
-Cli/__init__.py               0      0   100%
-Cli/test_cli.py               0      0   100%
-Dice/__init__.py              0      0   100%
-Dice/dice.py                 14      0   100%
-Dice/test_dice.py            24      1    96%   30
-Player/__init__.py            0      0   100%
-Player/player.py              5      0   100%
-Player/test_player.py        11      1    91%   15
--------------------------------------------------------
-TOTAL                       399     23    94%
+Name                  Stmts   Miss  Cover   Missing
+---------------------------------------------------
+Board/__init__.py         0      0   100%
+Board/board.py          142     17    88%   99-103, 110, 114, 120, 124, 144-149, 175, 184-186
+Checker/__init__.py       0      0   100%
+Checker/checker.py        5      0   100%
+Cli/__init__.py           0      0   100%
+Dice/__init__.py          0      0   100%
+Dice/dice.py             14      0   100%
+Player/__init__.py        0      0   100%
+Player/player.py          5      0   100%
+---------------------------------------------------
+TOTAL                   166     17    90%
 
 ```
 ## Pylint Report
