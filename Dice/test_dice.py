@@ -1,14 +1,20 @@
 import unittest
+from unittest.mock import patch
 from Dice.dice import Dice  
 
 class TestDice(unittest.TestCase):
 
-    def test_tirar_dado(self):
-        dado = Dice()
-        dado.tirar()
-        valores = dado.obtener_valores() 
+    @patch('random.randint', side_effect=[5, 2])
+    def test_tirar_devuelve_dos_valores(self, randint_patched):
+        dice = Dice()
+        dice.tirar()
+        valores = dice.obtener_valores()
         self.assertEqual(len(valores), 2)
-        self.assertTrue(all(1 <= val <= 6 for val in valores))
+        self.assertEqual(valores[0], 5)
+        self.assertEqual(valores[1], 2)
+        self.assertTrue(randint_patched.called)
+        self.assertEqual(randint_patched.call_count, 2)
+
     
     def test_resetear_limpia_valores(self):
         dado = Dice()

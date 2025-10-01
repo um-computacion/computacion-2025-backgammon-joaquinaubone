@@ -281,3 +281,11 @@
 
 - Se agregó archivo `.coveragerc` para personalizar la ejecución de Coverage.
 - Se configuró la opción `[run].omit` para excluir todos los archivos de tests (`test_*.py` y `tests/*`) de los reportes de cobertura.
+
+## 2025-10-01
+### Modificado
+- Reemplazados los tests antiguos del método `tirar()` en la clase `Dice` por una nueva versión que usa `@patch` para controlar el comportamiento de `random.randint`.  
+- Agregado el test `test_tirar_devuelve_dos_valores` que valida correctamente que:
+  - Se generen dos valores de dado.  
+  - Los valores devueltos coincidan con lo simulado (ejemplo: `[5,2]`).  
+  - `random.randint` sea llamado exactamente dos veces.  
