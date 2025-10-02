@@ -1,4 +1,4 @@
-from Dice.dice import Dado
+from dice.dice import Dado
 from Board.board import Tablero
 from Player.player import Player
 
