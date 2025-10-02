@@ -1,5 +1,5 @@
 import unittest
-from Dice.dice import Dice  
+from dice.dice import Dice  
 
 class TestDice(unittest.TestCase):
 
