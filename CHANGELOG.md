@@ -289,3 +289,10 @@
   - Se generen dos valores de dado.  
   - Los valores devueltos coincidan con lo simulado (ejemplo: `[5,2]`).  
   - `random.randint` sea llamado exactamente dos veces.  
+
+  ## 2025-10-02
+### Modificado
+- Se corrigió el formato de `Dice/dice.py` eliminando espacios sobrantes al final de línea.
+- Se agregó nueva línea final al archivo para cumplir con las reglas de `pylint`.
+- Se añadieron docstrings a la clase y métodos de `Dice` para mejorar la legibilidad y el puntaje de análisis estático.
+
