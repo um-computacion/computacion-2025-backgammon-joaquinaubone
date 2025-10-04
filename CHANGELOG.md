@@ -296,3 +296,10 @@
 - Se agregó nueva línea final al archivo para cumplir con las reglas de `pylint`.
 - Se añadieron docstrings a la clase y métodos de `Dice` para mejorar la legibilidad y el puntaje de análisis estático.
 
+## 2025-10-04
+### Modificado
+
+- Se corrigieron advertencias de formato en `test_dice.py` detectadas por *Pylint*:
+  - Eliminación de espacios en blanco al final de línea (C0303).
+  - Agregado salto de línea final (C0304).
+- No se realizaron cambios funcionales: solo mejoras de estilo y cumplimiento de PEP8.
