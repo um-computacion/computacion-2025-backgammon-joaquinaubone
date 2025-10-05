@@ -1,5 +1,5 @@
 import unittest
-from Checker.checker import Ficha
+from checker.checker import Ficha
 
 class TestFicha(unittest.TestCase):
 

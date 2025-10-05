@@ -303,3 +303,11 @@
   - Eliminación de espacios en blanco al final de línea (C0303).
   - Agregado salto de línea final (C0304).
 - No se realizaron cambios funcionales: solo mejoras de estilo y cumplimiento de PEP8.
+
+## 2025-10-05
+### Modificado
+
+- Renombrada la carpeta `Checker` a `checker` para cumplir con las convenciones de nomenclatura de PEP 8.
+- Actualizados los `import` en todo el proyecto:
+  - De `from Checker.checker import Checker` → a `from checker.checker import Checker`.
+- Mejora en la legibilidad y consistencia del código según las normas de Pylint.
