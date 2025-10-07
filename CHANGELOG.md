@@ -315,3 +315,9 @@
 ## 2025-10-06
 ### Corregido
 - Se agregó una línea en blanco al final del archivo `checker/test_checker.py` para cumplir con la regla **C0304 (missing-final-newline)** de Pylint.
+
+## 2025-10-07
+### Modificado
+- Archivo `Player/player.py`: se agregaron docstrings al módulo, clase y método `obtener_color()` para cumplir con los estándares de documentación de Pylint.
+- Se ajustó el formato del archivo según las convenciones de estilo de Python (PEP8).
+- Se mantiene la estructura y funcionalidad original de la clase `Player`.
