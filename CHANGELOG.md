@@ -329,3 +329,12 @@
   - Se agregó **docstring de clase** para `TestPlayer`, explicando su propósito.
   - Se agregaron **docstrings a los métodos de test**, describiendo su función específica.
   - Se corrigió el formato general (indentación, espacios innecesarios y orden de imports).
+
+## 2025-10-08
+### Corregido
+
+- Se eliminaron los **espacios en blanco finales** (`Trailing whitespace`) en el archivo `Game/game.py`.
+- Se agregó una **línea en blanco al final del archivo** para cumplir con la regla `missing-final-newline`.
+- Se mejoró el formato del código sin modificar la lógica de la clase `Juego`.
+- Pylint actualizado sin errores de formato (C0303 y C0304) en `Game/game.py`.
+
