@@ -321,3 +321,11 @@
 - Archivo `Player/player.py`: se agregaron docstrings al módulo, clase y método `obtener_color()` para cumplir con los estándares de documentación de Pylint.
 - Se ajustó el formato del archivo según las convenciones de estilo de Python (PEP8).
 - Se mantiene la estructura y funcionalidad original de la clase `Player`.
+
+## 2025-10-07
+### Modificado
+- Archivo `Player/test_player.py`: se realizaron múltiples correcciones según Pylint.
+  - Se agregó **docstring de módulo** descriptivo al inicio del archivo.
+  - Se agregó **docstring de clase** para `TestPlayer`, explicando su propósito.
+  - Se agregaron **docstrings a los métodos de test**, describiendo su función específica.
+  - Se corrigió el formato general (indentación, espacios innecesarios y orden de imports).
