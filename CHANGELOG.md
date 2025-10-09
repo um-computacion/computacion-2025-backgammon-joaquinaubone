@@ -338,3 +338,10 @@
 - Se mejoró el formato del código sin modificar la lógica de la clase `Juego`.
 - Pylint actualizado sin errores de formato (C0303 y C0304) en `Game/game.py`.
 
+## 2025-10-09
+### Corregido
+
+- Se ajustan los imports en `test_game.py` para cumplir con las rutas de los módulos del proyecto (`Game`, `Board`, `Player`, `Dice`).
+- Se corrigen espacios innecesarios al final de línea (C0303).
+- Se agrega salto de línea final (C0304).
+- Se verifica compatibilidad de los módulos con `pylint` y `unittest`.
