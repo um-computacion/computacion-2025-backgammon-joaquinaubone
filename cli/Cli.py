@@ -1,4 +1,4 @@
-from Game.game import Game
+from game.game import Game
 
 def jugar(tablero, dados, jugador_blanco, jugador_negro):
     juego = Game(tablero, dados, jugador_blanco, jugador_negro)
