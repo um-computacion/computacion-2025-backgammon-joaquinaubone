@@ -1,4 +1,4 @@
-"""Tests unitarios para la clase Checker."""
+"""Tests unitarios para la clase Checker"""
 
 import unittest
 from checker.checker import Ficha
