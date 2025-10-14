@@ -350,3 +350,10 @@
 
 - Se agrega docstring principal al módulo `main.py`.
 - Se añade docstring descriptivo a la función principal.
+
+## 2025-10-05
+### Corregido
+
+- Agregado docstring principal al módulo `cli.py`.
+- Agregado docstring descriptivo a la función `jugar()`.
+- Reemplazado `except Exception` por `except ValueError` para evitar captura genérica (W0718).

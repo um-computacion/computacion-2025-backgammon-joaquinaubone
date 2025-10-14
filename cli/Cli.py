@@ -1,7 +1,14 @@
-from game.game import Game
+"""Módulo CLI para el juego de Backgammon.
+
+Contiene la función principal `jugar` que maneja la interacción
+con el usuario a través de la línea de comandos.
+"""
+from game.game import Juego
 
 def jugar(tablero, dados, jugador_blanco, jugador_negro):
-    juego = Game(tablero, dados, jugador_blanco, jugador_negro)
+    """Ejecuta el flujo principal del juego Backgammon desde la línea de comandos."""
+    
+    juego = Juego(tablero, dados, jugador_blanco, jugador_negro)
 
     while not juego.verificar_fin_del_juego():
         color = juego.obtener_jugador_actual().obtener_color()
@@ -35,7 +42,7 @@ def jugar(tablero, dados, jugador_blanco, jugador_negro):
                 tablero.mover(origen, pasos, color)
                 tirada.remove(pasos)
 
-            except Exception as e:
+            except ValueError as e:
                 print(f"Error: {e}")
                 continue
         if tablero.gano(color):
@@ -43,4 +50,4 @@ def jugar(tablero, dados, jugador_blanco, jugador_negro):
 
         juego.cambiar_turno()
 
-    print(f"\n🏆 ¡El jugador {juego.obtener_jugador_actual().obtener_color()} ha ganado!")
+    print(f"\n ¡El jugador {juego.obtener_jugador_actual().obtener_color()} ha ganado!")
