@@ -357,3 +357,11 @@
 - Agregado docstring principal al módulo `cli.py`.
 - Agregado docstring descriptivo a la función `jugar()`.
 - Reemplazado `except Exception` por `except ValueError` para evitar captura genérica (W0718).
+
+## 2025-10-14
+### Corregido
+- Corregido formato de líneas largas dividiéndolas en múltiples líneas para respetar el límite de 100 caracteres.
+- Removido `pass` innecesario en la clase `PosNoExistenteException`.
+- Eliminados bloques `else` y `elif` redundantes después de `return` en múltiples métodos (`get_point`, `obtener_bar`, `obtener_off`, `gano`, `__sacar_de_barra`).
+- Removidos paréntesis superfluos en expresión `not` del método `__sacar_de_tablero`.
+- Agregados docstrings faltantes a métodos privados (`hay_movimientos_posibles`, `__obtener_direccion`, `__calcular_destino_desde_barra`, `__puede_salir_de_barra`, `__puede_mover_ficha_en_tablero`).
