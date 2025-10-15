@@ -351,7 +351,7 @@
 - Se agrega docstring principal al módulo `main.py`.
 - Se añade docstring descriptivo a la función principal.
 
-## 2025-10-05
+## 2025-10-14
 ### Corregido
 
 - Agregado docstring principal al módulo `cli.py`.
@@ -365,3 +365,9 @@
 - Eliminados bloques `else` y `elif` redundantes después de `return` en múltiples métodos (`get_point`, `obtener_bar`, `obtener_off`, `gano`, `__sacar_de_barra`).
 - Removidos paréntesis superfluos en expresión `not` del método `__sacar_de_tablero`.
 - Agregados docstrings faltantes a métodos privados (`hay_movimientos_posibles`, `__obtener_direccion`, `__calcular_destino_desde_barra`, `__puede_salir_de_barra`, `__puede_mover_ficha_en_tablero`).
+
+## 2025-10-14
+### Corregido
+
+- Se agrega docstring principal al módulo `test_board.py`.
+- Se añade docstring descriptivo en cada test
