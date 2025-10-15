@@ -371,3 +371,8 @@
 
 - Se agrega docstring principal al módulo `test_board.py`.
 - Se añade docstring descriptivo en cada test
+
+## 2025-10-15
+## Corregido
+
+-se agegan test para mejorar el coverage 
