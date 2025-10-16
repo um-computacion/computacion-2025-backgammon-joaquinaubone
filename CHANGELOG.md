@@ -392,3 +392,11 @@
   - `test_puede_sacar_con_todas_fichas_en_ultima_posicion`: verifica que se permita bornear con todas las fichas en la última posición.
   - `test_mover_secuencia_completa_de_juego`: simula una secuencia de movimientos en partida real.
   - `test_get_point_limites_del_tablero`: valida la obtención de puntos en los límites del tablero.
+
+## 2025-10-16
+## agregado
+se corrigue el metodo mostrar dentro de clase board con:
+- Tablero con fichas apiladas verticalmente
+- Layout superior (11-0) e inferior (12-23)
+- Barra en el centro, bordes con caracteres especiales
+- Más legible y similar al tablero real"

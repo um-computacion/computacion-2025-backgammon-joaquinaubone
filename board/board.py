@@ -34,12 +34,7 @@ class Tablero:
 
     def mostrar(self): 
         """Muestra por consola el estado actual del tablero, barra y borneados."""
-        print("Tablero:")
-        print(self.__contenedor__)
-        print(f"Barra Blancas: {self.__bar_blanco__}")
-        print(f"Barra Negras: {self.__bar_negro__}")
-        print(f"Borneadas Blancas: {self.__off_blanco__}")
-        print(f"Borneadas Negras: {self.__off_negro__}")
+        mostrar_tablero_visual(self)
 
     def get_point(self, indice):
         """Devuelve la lista de fichas en una posición específica."""
@@ -105,10 +100,10 @@ class Tablero:
         if color not in ('B', 'N'):
             raise ValueError("Color inválido. Use 'B' o 'N'.")
 
-        if self.obtener_bar(color) and origen != 0:
+        if self.obtener_bar(color) and origen != -1:
             raise ValueError("Debe mover primero las fichas en la barra.")
 
-        if origen == 0:
+        if origen == -1:
             ficha, destino = self.__sacar_de_barra(color, pasos)
         else:
             ficha, destino = self.__sacar_de_tablero(origen, pasos, color)
@@ -158,7 +153,7 @@ class Tablero:
         casilla = self.__contenedor__[destino]
         if not casilla or casilla[-1] == color:
             casilla.append(ficha)
-        elif len(casilla) == 1:
+        elif len(casilla) == 1 and casilla[0] != color:
             rival = casilla.pop()
             self.obtener_bar('B' if color == 'N' else 'N').append(rival)
             casilla.append(ficha)
@@ -209,3 +204,101 @@ class Tablero:
                                 self.__contenedor__[destino], color)):
                         return True
         return False
+def mostrar_tablero_visual(tablero):
+    """Muestra el tablero con fichas apiladas verticalmente usando métodos públicos."""
+    
+    bar_blanco = tablero.obtener_bar('B')
+    bar_negro = tablero.obtener_bar('N')
+    off_blanco = tablero.obtener_off('B')
+    off_negro = tablero.obtener_off('N')
+    
+    # Encontrar la altura máxima
+    max_height = max([len(tablero.get_point(i)) for i in range(24)] + [5])
+    
+    print("\n┌" + "─" * 37 + "┬" + "─" * 5 + "┬" + "─" * 37 + "┐")
+    
+    # Números superiores (11-0 de izq a der)
+    print("│ 11  10   9   8   7   6 │ BAR │  5   4   3   2   1   0 │")
+    
+    # Parte superior (fichas que van hacia abajo desde arriba)
+    for nivel in range(max_height):
+        linea = "│"
+        
+        # Posiciones 11-6
+        for i in range(11, 5, -1):
+            punto = tablero.get_point(i)
+            if nivel < len(punto):
+                ficha = punto[nivel]
+                linea += f"  {ficha} "
+            else:
+                linea += "    "
+        
+        linea += " │"
+        
+        # BARRA - mostrar fichas negras arriba
+        if nivel < len(bar_negro):
+            linea += f"  N  "
+        else:
+            linea += "     "
+        
+        linea += "│"
+        
+        # Posiciones 5-0
+        for i in range(5, -1, -1):
+            punto = tablero.get_point(i)
+            if nivel < len(punto):
+                ficha = punto[nivel]
+                linea += f"  {ficha} "
+            else:
+                linea += "    "
+        
+        linea += " │"
+        print(linea)
+    
+    # Línea divisoria
+    print("├" + "─" * 37 + "┼" + "─" * 5 + "┼" + "─" * 37 + "┤")
+    
+    # Parte inferior (fichas que van hacia arriba desde abajo)
+    for nivel in range(max_height - 1, -1, -1):
+        linea = "│"
+        
+        # Posiciones 12-17
+        for i in range(12, 18):
+            punto = tablero.get_point(i)
+            if nivel < len(punto):
+                ficha = punto[nivel]
+                linea += f"  {ficha} "
+            else:
+                linea += "    "
+        
+        linea += " │"
+        
+        # BARRA - mostrar fichas blancas abajo
+        if nivel < len(bar_blanco):
+            linea += f"  B  "
+        else:
+            linea += "     "
+        
+        linea += "│"
+        
+        # Posiciones 18-23
+        for i in range(18, 24):
+            punto = tablero.get_point(i)
+            if nivel < len(punto):
+                ficha = punto[nivel]
+                linea += f"  {ficha} "
+            else:
+                linea += "    "
+        
+        linea += " │"
+        print(linea)
+    
+    # Números inferiores (12-23)
+    print("│ 12  13  14  15  16  17 │     │ 18  19  20  21  22  23 │")
+    print("└" + "─" * 37 + "┴" + "─" * 5 + "┴" + "─" * 37 + "┘")
+    
+    # Información adicional
+    print(f"\nBarra: B={len(bar_blanco)} N={len(bar_negro)}  |  OFF: B={len(off_blanco)} N={len(off_negro)}")
+    print()
+
+
