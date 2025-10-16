@@ -105,16 +105,24 @@ class Tablero:
 
         if origen == -1:
             ficha, destino = self.__sacar_de_barra(color, pasos)
+            origen_real = -1
         else:
             ficha, destino = self.__sacar_de_tablero(origen, pasos, color)
-
-        if self.__es_movimiento_fuera_de_tablero(color, destino):
-            if self.puede_sacar_ficha(color):
-                self.__agregar_a_off(color, ficha)
+            origen_real = origen
+        try:
+            if self.__es_movimiento_fuera_de_tablero(color, destino):
+                if self.puede_sacar_ficha(color):
+                    self.__agregar_a_off(color, ficha)
+                else:
+                    raise ValueError("No se puede mover fuera del tablero sin poder bornearse.")
             else:
-                raise ValueError("No se puede mover fuera del tablero sin poder bornearse.")
-            return
-        self.__mover_a_destino(destino, ficha, color)
+                self.__mover_a_destino(destino, ficha, color)
+        except ValueError:
+            if origen_real == -1:
+                self.obtener_bar(color).append(ficha)
+            else:
+                self.__contenedor__[origen_real].append(ficha)
+            raise
     
     def __sacar_de_barra(self, color, pasos):
         """Saca una ficha de la barra y calcula su destino."""
