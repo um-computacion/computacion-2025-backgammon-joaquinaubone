@@ -376,3 +376,19 @@
 ## Corregido
 
 -se agegan test para mejorar el coverage 
+
+## 2025-10-15
+### Agregado
+
+- Nuevos tests en `Board/test_board.py` para ampliar la cobertura y validar casos complejos:
+  - `test_hay_movimientos_desde_barra_bloqueada`: verifica que no haya movimientos posibles cuando todas las entradas desde la barra están bloqueadas.
+  - `test_puede_sacar_ficha_verificacion_completa_blancas` y `test_puede_sacar_ficha_verificacion_completa_negras`: prueban todas las condiciones para permitir o impedir el borneado.
+  - `test_mover_con_destino_negativo_blancas` y `test_mover_con_destino_mayor_23_negras`: validan restricciones de movimiento fuera del tablero.
+  - `test_estado_inicial_completo`: asegura que el tablero inicial tenga 15 fichas por color.
+  - `test_movimientos_consecutivos_mismo_color`: comprueba múltiples movimientos válidos del mismo color.
+  - `test_mover_bloqueado_por_multiples_rivales`: verifica que no se pueda mover a una casilla ocupada por más de una ficha rival.
+  - `test_mover_desde_barra_cuando_entrada_bloqueada_parcial`: valida el ingreso desde barra cuando algunas posiciones están bloqueadas.
+  - `test_interpretar_tirada_limites` y `test_interpretar_tirada_todos_los_pares`: comprueban interpretación correcta de todas las combinaciones posibles de tiradas.
+  - `test_puede_sacar_con_todas_fichas_en_ultima_posicion`: verifica que se permita bornear con todas las fichas en la última posición.
+  - `test_mover_secuencia_completa_de_juego`: simula una secuencia de movimientos en partida real.
+  - `test_get_point_limites_del_tablero`: valida la obtención de puntos en los límites del tablero.
