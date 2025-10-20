@@ -416,3 +416,12 @@ para evitar perdida de ficha cuando movimiento falla, se agrega:
 - __sacar_de_tablero(): casilla[-1] → casilla[0]
 - __puede_mover_ficha_en_tablero(): casilla[-1] → casilla[0]
 - puede_sacar_ficha(): Agrega verificación de barra + casilla[-1] → casilla[0]
+
+## 2025-10-19
+## agregado
+
+- Movidos 43 tests de test_board.py a test_game.py
+- Corregida lógica de Juego: métodos gano(), mover(), interpretar_tirada()
+- Corregidos errores de pylint (trailing whitespace, imports)
+- Mejorada detección de movimientos bloqueados
+- Cobertura de tests: 32 tests en game, funcionalidad completa"
