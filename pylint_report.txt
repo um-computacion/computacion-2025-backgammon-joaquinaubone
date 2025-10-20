@@ -1,10 +1,8 @@
 ************* Module test.py
 test.py:1:0: F0001: No module named test.py (fatal)
 ************* Module main
-main.py:16:0: C0303: Trailing whitespace (trailing-whitespace)
-main.py:18:0: C0304: Final newline missing (missing-final-newline)
-main.py:1:0: C0114: Missing module docstring (missing-module-docstring)
-main.py:6:0: C0116: Missing function or method docstring (missing-function-docstring)
+main.py:21:0: C0303: Trailing whitespace (trailing-whitespace)
+main.py:23:0: C0304: Final newline missing (missing-final-newline)
 
 -----------------------------------
 Your code has been rated at 0.00/10
