@@ -222,7 +222,7 @@ class TestTablero(unittest.TestCase):
         tablero.get_point(2).extend(['N', 'N'])
         
         with self.assertRaises(ValueError):
-            tablero.mover(0, 3, 'B')
+            tablero.mover(-1, 3, 'B')
 
     def test_interpretar_tirada_con_mismo_valor(self):
         """Verifica que dobles dan 4 movimientos."""
@@ -389,7 +389,7 @@ class TestTablero(unittest.TestCase):
         
         # Debería poder entrar por otras posiciones
         try:
-            tablero.mover(0, 4, 'B')  # Intentar entrar por posición 3
+            tablero.mover(-1, 4, 'B')  # Intentar entrar por posición 3
             # Si funcionó, la barra debería tener una ficha menos
             self.assertLess(len(tablero.obtener_bar('B')), 1)
         except ValueError:

@@ -28,14 +28,14 @@ def jugar(tablero, dados, jugador_blanco, jugador_negro):
             tablero.mostrar()
             print(f"Valores disponibles: {tirada}")
             try:
-                origen = int(input("Ingresá la casilla de origen (0 si estás en barra): "))
+                origen = int(input("Ingresá la casilla de origen (-1 si estás en barra): "))
                 pasos = int(input("Ingresá la cantidad de pasos: "))
 
                 if pasos not in tirada:
                     print("Ese valor no está en la tirada. Intentá con otro.")
                     continue
 
-                if tablero.obtener_bar(color) and origen != 0:
+                if tablero.obtener_bar(color) and origen != -1:
                     print("Tenés fichas en la barra. Primero debés moverlas (origen = 0).")
                     continue
 
