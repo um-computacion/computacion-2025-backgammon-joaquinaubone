@@ -400,3 +400,19 @@ se corrigue el metodo mostrar dentro de clase board con:
 - Layout superior (11-0) e inferior (12-23)
 - Barra en el centro, bordes con caracteres especiales
 - Más legible y similar al tablero real"
+
+## 2025-10-16
+## agregado
+para evitar perdida de ficha cuando movimiento falla, se agrega:
+- Agrega try-except en mover() para capturar errores
+- Si el movimiento falla, devuelve la ficha al origen
+- Previene que fichas desaparezcan del tablero
+- Devuelve a barra si origen era -1, o a posición original"
+
+
+## 2025-10-19
+## agregado
+ __es_movimiento_valido(): casilla[-1] → casilla[0]
+- __sacar_de_tablero(): casilla[-1] → casilla[0]
+- __puede_mover_ficha_en_tablero(): casilla[-1] → casilla[0]
+- puede_sacar_ficha(): Agrega verificación de barra + casilla[-1] → casilla[0]

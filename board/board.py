@@ -68,7 +68,7 @@ class Tablero:
         """Evalúa si una casilla es válida para mover una ficha."""
         return (
             not casilla                         # casilla vacía
-            or casilla[-1] == color             # última ficha del mismo color
+            or casilla[0] == color             # primera ficha del mismo color
             or len(casilla) == 1                # solo una ficha rival
         )
 
@@ -78,6 +78,9 @@ class Tablero:
 
     def puede_sacar_ficha(self, color):
         """Verifica si el jugador puede empezar a sacar fichas (bornear)."""
+        if self.obtener_bar(color):
+            return False
+        
         if color == 'B':
             rango_prohibido = range(0, 18)  
         else:
@@ -140,7 +143,7 @@ class Tablero:
             raise ValueError("Posición de origen fuera del tablero.")
         if not self.__contenedor__[origen]:
             raise ValueError("No hay fichas en la casilla de origen.")
-        if self.__contenedor__[origen][-1] != color:
+        if self.__contenedor__[origen][0] != color:
             raise ValueError("La ficha no pertenece al jugador.")
         ficha = self.__contenedor__[origen].pop()
         if color == 'B':
@@ -200,7 +203,7 @@ class Tablero:
         """Verifica si alguna ficha en el tablero puede moverse."""
         for i in range(24):
             casilla = self.__contenedor__[i]
-            if casilla and casilla[-1] == color:
+            if casilla and casilla[0] == color:
                 for valor in valores_dado:
                     destino = i + valor * direccion
                     if self.__es_movimiento_fuera_de_tablero(color, destino):
