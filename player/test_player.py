@@ -1,6 +1,6 @@
 """Tests unitarios para la clase Player."""
 import unittest
-from Player.player import Player
+from player.player import Player
 
 class TestPlayer(unittest.TestCase):
     """Contiene los tests para verificar el comportamiento de la clase Player."""

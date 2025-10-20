@@ -10,23 +10,24 @@ def jugar(tablero, dados, jugador_blanco, jugador_negro):
     
     juego = Juego(tablero, dados, jugador_blanco, jugador_negro)
 
-    while not juego.verificar_fin_del_juego():
+    while not juego.gano():
         color = juego.obtener_jugador_actual().obtener_color()
         print(f"Turno del jugador {color}")
 
         dados.tirar()
-        tirada = tablero.interpretar_tirada(*dados.obtener_valores())
+        tirada = juego.interpretar_tirada()
         print(f"Dados: {tirada}")
-
-        if not tablero.hay_movimientos_posibles(color, tirada):
-            print("No hay movimientos posibles. Pierdes el turno.")
-            juego.cambiar_turno()
-            continue
 
         while tirada:
             print("\n📍 Estado actual del tablero:")
             tablero.mostrar()
             print(f"Valores disponibles: {tirada}")
+
+            if not juego.hay_movimientos_posibles(color, tirada):
+                print("No hay movimientos posibles. Pierdes el turno.")
+                juego.cambiar_turno()
+                continue
+
             try:
                 origen = int(input("Ingresá la casilla de origen (-1 si estás en barra): "))
                 pasos = int(input("Ingresá la cantidad de pasos: "))
@@ -36,18 +37,22 @@ def jugar(tablero, dados, jugador_blanco, jugador_negro):
                     continue
 
                 if tablero.obtener_bar(color) and origen != -1:
-                    print("Tenés fichas en la barra. Primero debés moverlas (origen = 0).")
+                    print("Tenés fichas en la barra. Primero debés moverlas (origen = -1).")
                     continue
 
-                tablero.mover(origen, pasos, color)
+                juego.mover(origen, pasos)
                 tirada.remove(pasos)
 
             except ValueError as e:
                 print(f"Error: {e}")
                 continue
-        if tablero.gano(color):
+        if juego.gano():
             break
 
         juego.cambiar_turno()
 
-    print(f"\n ¡El jugador {juego.obtener_jugador_actual().obtener_color()} ha ganado!")
+    if juego.turno_actual == 'N':
+        color_ganador = 'N' 
+    else:
+        color_ganador = "B"
+    print(f"\n ¡El jugador {color_ganador} ha ganado!")
