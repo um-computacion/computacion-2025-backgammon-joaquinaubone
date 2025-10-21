@@ -58,34 +58,35 @@ class TestJuego(unittest.TestCase):
     def test_gano_true_blancas(self):
         """Verifica victoria de blancas con 15 fichas en off."""
         self.tablero.obtener_off('B').extend(['B'] * 15)
-        self.assertTrue(self.game.gano())
+        self.assertTrue(self.game.gano('B'))
 
     def test_gano_false_blancas(self):
         """Verifica que blancas no ganan con 14 fichas en off."""
         self.tablero.obtener_off('B').extend(['B'] * 14)
-        self.assertFalse(self.game.gano())
+        self.assertFalse(self.game.gano('B'))
 
     def test_gano_true_negras(self):
         """Verifica victoria de negras con 15 fichas en off."""
         self.game.turno_actual = 'N'
         self.tablero.obtener_off('N').extend(['N'] * 15)
-        self.assertTrue(self.game.gano())
+        self.assertTrue(self.game.gano('N'))
 
     def test_gano_false_negras(self):
         """Verifica que negras no ganan con 13 fichas en off."""
         self.game.turno_actual = 'N'
         self.tablero.obtener_off('N').extend(['N'] * 13)
-        self.assertFalse(self.game.gano())
+        self.assertFalse(self.game.gano('N'))
 
     def test_gano_color_invalido(self):
         """Verifica comportamiento con color inválido."""
         self.game.turno_actual = 'X'
         with self.assertRaises(ValueError):
-            self.game.gano()
+            self.game.gano('X')
 
     def test_no_gano(self):
         """Verifica que el jugador no haya ganado al inicio."""
-        self.assertFalse(self.game.gano())
+        self.assertFalse(self.game.gano('B'))
+        self.assertFalse(self.game.gano('N'))
 
     def test_puede_sacar_ficha_verificacion_completa_blancas(self):
         """Verifica todas las condiciones para sacar fichas blancas."""
