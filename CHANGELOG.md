@@ -435,3 +435,12 @@ para evitar perdida de ficha cuando movimiento falla, se agrega:
 - Lógica de verificación de victoria movida del bucle interno (while tirada) al bucle externo
 - Tests en clase `Dice`: uso correcto de `@patch` y validaciones de `randint`
 - Método `interpretar_tirada()` en clase `Juego` para manejar correctamente dados dobles
+
+
+## 2025-10-20
+## agregado
+
+Tests de método `gano()` actualizados para recibir parámetro `color`
+- 6 tests en `test_game.py` que fallaban con TypeError
+- Test `test_gano_color_invalido` modificado para verificar color inválido
+- Test `test_no_gano` expandido para verificar ambos colores al inicio
