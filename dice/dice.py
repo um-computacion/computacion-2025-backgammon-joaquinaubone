@@ -18,10 +18,3 @@ class Dice:
         """Devuelve la lista de valores actuales de los dados."""
         return self.__values__
     
-    def resetear(self):  
-        """Reinicia los valores de los dados, dejándolos vacíos."""
-        self.__values__ = []
-
-    def sin_valores(self):
-        """Indica si actualmente no hay valores de dados disponibles."""
-        return len(self.__values__) == 0

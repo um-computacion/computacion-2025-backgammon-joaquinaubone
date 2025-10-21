@@ -10,7 +10,7 @@ def jugar(tablero, dados, jugador_blanco, jugador_negro):
     
     juego = Juego(tablero, dados, jugador_blanco, jugador_negro)
 
-    while not juego.gano():
+    while not juego.gano('B') and not juego.gano('N'):
         color = juego.obtener_jugador_actual().obtener_color()
         print(f"Turno del jugador {color}")
 
@@ -18,15 +18,22 @@ def jugar(tablero, dados, jugador_blanco, jugador_negro):
         tirada = juego.interpretar_tirada()
         print(f"Dados: {tirada}")
 
+        if not juego.hay_movimientos_posibles(color, tirada):
+                print("No hay movimientos posibles. Pierdes el turno.")
+                juego.cambiar_turno()
+                continue
+            
+
         while tirada:
+
+            if not juego.hay_movimientos_posibles(color, tirada):
+                print("No hay más movimientos posibles para los dados restantes.")
+                break 
+
             print("\n📍 Estado actual del tablero:")
             tablero.mostrar()
             print(f"Valores disponibles: {tirada}")
 
-            if not juego.hay_movimientos_posibles(color, tirada):
-                print("No hay movimientos posibles. Pierdes el turno.")
-                juego.cambiar_turno()
-                continue
 
             try:
                 origen = int(input("Ingresá la casilla de origen (-1 si estás en barra): "))
@@ -46,13 +53,11 @@ def jugar(tablero, dados, jugador_blanco, jugador_negro):
             except ValueError as e:
                 print(f"Error: {e}")
                 continue
-        if juego.gano():
+
+        if juego.gano(color):
+            color_ganador = color
             break
 
         juego.cambiar_turno()
 
-    if juego.turno_actual == 'N':
-        color_ganador = 'N' 
-    else:
-        color_ganador = "B"
     print(f"\n ¡El jugador {color_ganador} ha ganado!")

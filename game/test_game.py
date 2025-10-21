@@ -22,8 +22,6 @@ class TestJuego(unittest.TestCase):
         self.jugador_negro = Player('N')
         self.game = Juego(self.tablero, self.dados, self.jugador_blanco, self.jugador_negro)
 
-    # ========== TESTS DE TURNOS ==========
-
     def test_cambiar_turno(self):
         """Verifica que el cambio de turno alterne correctamente entre los jugadores."""
         self.assertEqual(self.game.turno_actual, 'B')
@@ -36,8 +34,6 @@ class TestJuego(unittest.TestCase):
         """Verifica que se obtenga correctamente el jugador del turno actual."""
         jugador = self.game.obtener_jugador_actual()
         self.assertEqual(jugador.obtener_color(), 'B')
-
-    # ========== TESTS DE INTERPRETAR TIRADA ==========
 
     def test_interpretar_tirada_no_doble(self):
         """Verifica interpretación de tirada sin dobles."""
@@ -58,8 +54,6 @@ class TestJuego(unittest.TestCase):
         valores.extend([4, 4])
         resultado = self.game.interpretar_tirada()
         self.assertEqual(resultado, [4, 4, 4, 4])
-
-    # ========== TESTS DE CONDICIÓN DE VICTORIA ==========
 
     def test_gano_true_blancas(self):
         """Verifica victoria de blancas con 15 fichas en off."""
@@ -92,8 +86,6 @@ class TestJuego(unittest.TestCase):
     def test_no_gano(self):
         """Verifica que el jugador no haya ganado al inicio."""
         self.assertFalse(self.game.gano())
-
-    # ========== TESTS DE PODER SACAR FICHA ==========
 
     def test_puede_sacar_ficha_verificacion_completa_blancas(self):
         """Verifica todas las condiciones para sacar fichas blancas."""
@@ -183,8 +175,6 @@ class TestJuego(unittest.TestCase):
             except ValueError:
                 pass
 
-    # ========== TESTS DE MOVIMIENTOS POSIBLES ==========
-
     def test_hay_movimiento_posible_desde_tablero(self):
         """Verifica detección de movimientos posibles desde tablero."""
         # Con setup inicial, debe haber movimientos disponibles
@@ -210,8 +200,6 @@ class TestJuego(unittest.TestCase):
         game = Juego(tablero, self.dados, self.jugador_blanco, self.jugador_negro)
         resultado = game.hay_movimientos_posibles('B', [1])
         self.assertFalse(resultado)
-
-    # ========== TESTS DE MOVIMIENTOS Y VALIDACIONES ==========
 
     def test_mover_con_ficha_en_barra_y_origen_distinto_de_cero(self):
         """Verifica excepción al intentar mover desde tablero cuando hay fichas en barra."""
