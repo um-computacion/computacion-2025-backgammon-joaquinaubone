@@ -6,10 +6,10 @@ checker/__init__.py       0      0   100%
 checker/checker.py        5      0   100%
 cli/__init__.py           0      0   100%
 dice/__init__.py          0      0   100%
-dice/dice.py             14      0   100%
+dice/dice.py             10      0   100%
 game/__init__.py          0      0   100%
 game/game.py            121      8    93%   86, 110, 116, 134, 140, 177, 190, 197
 player/__init__.py        0      0   100%
 player/player.py          5      0   100%
 ---------------------------------------------------
-TOTAL                   235     10    96%
+TOTAL                   231     10    96%
