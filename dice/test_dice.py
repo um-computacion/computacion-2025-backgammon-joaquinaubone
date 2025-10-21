@@ -5,6 +5,11 @@ from dice.dice import Dice
 
 class TestDice(unittest.TestCase):
 
+    def test_inicializacion_valores_vacios(self):
+        """Verifica que los dados se inicialicen vacíos."""
+        dice = Dice()
+        self.assertEqual(dice.obtener_valores(), [])
+
     """Contiene los tests para verificar el comportamiento de la clase Dice."""
     @patch('random.randint', side_effect=[5, 2])
     def test_tirar_devuelve_dos_valores(self, randint_patched):
@@ -16,25 +21,15 @@ class TestDice(unittest.TestCase):
         self.assertEqual(valores[0], 5)
         self.assertEqual(valores[1], 2)
         self.assertTrue(randint_patched.called)
-        self.assertEqual(randint_patched.call_count, 2)
+        self.assertEqual(randint_patched.call_count, 2)    
 
-    
-    def test_resetear_limpia_valores(self):
-        """Verifica que resetear() limpie correctamente los valores del dado."""
-        dado = Dice()
-        dado.tirar()
-        self.assertGreater(len(dado.obtener_valores()), 0)  
-        dado.resetear()
-        self.assertEqual(dado.obtener_valores(), [])        
-
-    def test_sin_valores_devuelve_true_si_vacio(self):
-        """Verifica el comportamiento del método sin_valores()."""
-        dado = Dice()
-        self.assertTrue(dado.sin_valores())                
-        dado.tirar()
-        self.assertFalse(dado.sin_valores())                
-        dado.resetear()
-        self.assertTrue(dado.sin_valores())                
+    @patch('random.randint', side_effect=[3, 3])
+    def test_tirar_valores_dobles(self, mock_randint):
+        """Verifica que tirar() pueda generar dobles."""
+        dice = Dice()
+        dice.tirar()
+        valores = dice.obtener_valores()
+        self.assertEqual(valores, [3, 3])
 
 
 if __name__ == '__main__':

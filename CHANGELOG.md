@@ -425,3 +425,13 @@ para evitar perdida de ficha cuando movimiento falla, se agrega:
 - Corregidos errores de pylint (trailing whitespace, imports)
 - Mejorada detección de movimientos bloqueados
 - Cobertura de tests: 32 tests en game, funcionalidad completa"
+
+## 2025-10-20
+## agregado
+
+- Bug en detección de ganador: ahora se guarda correctamente el color del jugador antes de salir del bucle
+- Bug donde `cambiar_turno()` se ejecutaba después de que un jugador ganara, cambiando la identificación del ganador
+- Error `TypeError` en método `gano()`: ahora recibe correctamente el parámetro `color` requerido
+- Lógica de verificación de victoria movida del bucle interno (while tirada) al bucle externo
+- Tests en clase `Dice`: uso correcto de `@patch` y validaciones de `randint`
+- Método `interpretar_tirada()` en clase `Juego` para manejar correctamente dados dobles

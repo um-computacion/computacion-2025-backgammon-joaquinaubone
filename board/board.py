@@ -19,7 +19,7 @@ class Tablero:
         self.__bar_negro__ = []
         self.__off_blanco__ = []
         self.__off_negro__ = []
-
+    
     def setup(self): 
         """Configura el tablero con la posición inicial estándar de Backgammon."""
         self.__contenedor__[0] = ['B'] * 2         

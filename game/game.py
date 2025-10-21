@@ -15,7 +15,7 @@ class Juego:
         if self.turno_actual == 'N':
             self.turno_actual = 'B'  
         else:
-            self.turno_actual = "N"
+            self.turno_actual = 'N'
     
     def obtener_jugador_actual(self): 
         """Devuelve el jugador correspondiente al turno actual."""
@@ -28,7 +28,7 @@ class Juego:
             return [dado1] * 4
         return [dado1, dado2]
     
-    def gano(self):
+    def gano(self, color):
         """Verifica si el jugador actual ha ganado (15 fichas borneadas)."""
         color = self.turno_actual
         return len(self.tablero.obtener_off(color)) == 15
