@@ -57,7 +57,20 @@ class Tablero:
         if color == 'N':
             return self.__off_negro__
         raise ValueError("Color no válido. Use B para blanco o N para negro")
-        
+    
+    def to_pygame_format(self):
+        """Convierte el tablero al formato que Pygame espera."""
+        pos = []
+        for i in range(24):
+            punto = self.__contenedor__[i]
+            if not punto:
+                pos.append(None)
+            else:
+                color = 'white' if punto[0] == 'B' else 'black'
+                cantidad = len(punto)
+                pos.append((color, cantidad))
+        return pos
+            
 def mostrar_tablero_visual(tablero):
     """Muestra el tablero con fichas apiladas verticalmente usando métodos públicos."""
     
