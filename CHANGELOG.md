@@ -436,11 +436,17 @@ para evitar perdida de ficha cuando movimiento falla, se agrega:
 - Tests en clase `Dice`: uso correcto de `@patch` y validaciones de `randint`
 - Método `interpretar_tirada()` en clase `Juego` para manejar correctamente dados dobles
 
+## 2025-01-XX
 
-## 2025-10-20
-## agregado
-
-Tests de método `gano()` actualizados para recibir parámetro `color`
-- 6 tests en `test_game.py` que fallaban con TypeError
-- Test `test_gano_color_invalido` modificado para verificar color inválido
-- Test `test_no_gano` expandido para verificar ambos colores al inicio
+## Agregado
+Interfaz gráfica completa con Pygame (`pygameUI/pygame_ui.py`)
+- Tablero visual con triángulos alternados, barra central y zonas OFF
+- Fichas blancas y negras con bordes y efectos visuales
+- Sistema de resaltado: triángulo verde para origen, círculos verdes para destinos válidos
+- Detección de clicks en fichas (puntos 0-23), barra (-1) y zonas OFF (998, 999)
+- Indicadores visuales: dados actuales, mensajes de estado, contadores de fichas apiladas
+- Contadores de fichas en barra y OFF con formato "X/15"
+- Controles: ESPACIO para tirar dados, click izquierdo para mover, click derecho/C para cancelar
+- Validaciones: obligación de sacar fichas de barra, verificación de movimientos posibles
+- Detección automática de victoria y pantalla final
+- Integración completa con clases existentes: `Tablero`, `Juego`, `Dice`, `Player`

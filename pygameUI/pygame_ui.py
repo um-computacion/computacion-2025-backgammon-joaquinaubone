@@ -221,7 +221,8 @@ def render_board(surface, tablero, font, selected_point=None, destinos_validos=N
     # --- CREAR HITMAP ---
     hitmap = {i: [] for i in range(24)}
     hitmap[-1] = []
-
+    hitmap[998] = []  # OFF Negras
+    hitmap[999] = []  # OFF Blancas
     # Dibujar fichas en BARRA
     bar_blanco = tablero.obtener_bar('B')
     bar_negro = tablero.obtener_bar('N')
@@ -250,9 +251,9 @@ def render_board(surface, tablero, font, selected_point=None, destinos_validos=N
         if not cell:
             continue
         color_name, count = cell
-        
+
         # Determinar en qué zona está
-        if 7 <= idx <= 11:
+        if 6 <= idx <= 11:
             col_vis = 11 - idx
             area_rect = left_rect
             tri_w = tri_w_left
@@ -300,26 +301,33 @@ def render_board(surface, tablero, font, selected_point=None, destinos_validos=N
                            label, font)
                 hitmap[idx].append((cx, cy, radius))
 
-    # --- DIBUJAR CÍRCULOS VERDES Y AGREGAR AL HITMAP (AL FINAL) ---
+    # --- DIBUJAR CÍRCULOS VERDES Y AGREGAR AL HITMAP ---
     if destinos_validos:
         for dest_idx in destinos_validos:
-            # Determinar posición
-            if 7 <= dest_idx <= 11:
+            # Saltar OFF (998, 999) ya que se manejan por separado
+            if dest_idx == 998 or dest_idx == 999:
+                continue
+            
+            # Determinar posición según zona del tablero
+            if 6 <= dest_idx <= 11:  # Izquierda superior (12-8)
                 col_vis = 11 - dest_idx
                 area_rect = left_rect
                 tri_w = tri_w_left
-            elif 12 <= dest_idx <= 17:
+            elif 12 <= dest_idx <= 17:  # Izquierda inferior (13-18)
                 col_vis = dest_idx - 12
                 area_rect = left_rect
                 tri_w = tri_w_left
-            elif 0 <= dest_idx <= 5:
+            elif 0 <= dest_idx <= 5:  # Derecha superior (6-1)
                 col_vis = 5 - dest_idx
                 area_rect = right_rect
                 tri_w = tri_w_right
-            else:
+            elif 18 <= dest_idx <= 23:  # Derecha inferior (19-24) ← AGREGADO
                 col_vis = dest_idx - 18
                 area_rect = right_rect
                 tri_w = tri_w_right
+            else:
+                # No debería llegar aquí
+                continue
             
             cx = int(area_rect.left + col_vis * tri_w + tri_w / 2)
             cy = area_rect.centery
@@ -327,8 +335,49 @@ def render_board(surface, tablero, font, selected_point=None, destinos_validos=N
             # Dibujar círculo verde
             pygame.draw.circle(surface, HIGHLIGHT, (cx, cy), 25, 4)
             
-            # AGREGAR al hitmap para que sea clickeable
+            if dest_idx not in hitmap:
+                hitmap[dest_idx] = []
             hitmap[dest_idx].append((cx, cy, 30))
+
+    # --- ZONA DE BORNEADO (OFF) a la derecha ---
+    off_width = 70
+    off_x = full_board_rect.right + 15
+    
+    # OFF para blancas (abajo)
+    off_rect_blanco = pygame.Rect(off_x, full_board_rect.centery + 30, 
+                                   off_width, full_board_rect.height // 2 - 50)
+    pygame.draw.rect(surface, (220, 255, 220), off_rect_blanco, border_radius=8)
+    pygame.draw.rect(surface, LINE, off_rect_blanco, 2, border_radius=8)
+    
+    off_blanco = tablero.obtener_off('B')
+    off_label_b = font.render("OFF B", True, TEXT)
+    surface.blit(off_label_b, (off_x + 8, off_rect_blanco.top + 10))
+    if off_blanco:
+        count_label_b = font.render(f"{len(off_blanco)}/15", True, TEXT)
+        surface.blit(count_label_b, (off_x + 12, off_rect_blanco.centery - 5))
+    
+    # OFF para negras (arriba)
+    off_rect_negro = pygame.Rect(off_x, full_board_rect.top + 30,
+                                  off_width, full_board_rect.height // 2 - 50)
+    pygame.draw.rect(surface, (220, 220, 255), off_rect_negro, border_radius=8)
+    pygame.draw.rect(surface, LINE, off_rect_negro, 2, border_radius=8)
+    
+    off_negro = tablero.obtener_off('N')
+    off_label_n = font.render("OFF N", True, TEXT)
+    surface.blit(off_label_n, (off_x + 8, off_rect_negro.top + 10))
+    if off_negro:
+        count_label_n = font.render(f"{len(off_negro)}/15", True, TEXT)
+        surface.blit(count_label_n, (off_x + 12, off_rect_negro.centery - 5))
+    
+    ## Hacer las zonas OFF clickeables
+    hitmap[999] = [(off_rect_blanco.centerx, off_rect_blanco.centery, 35)]
+    hitmap[998] = [(off_rect_negro.centerx, off_rect_negro.centery, 35)]
+    
+    # Resaltar OFF si está en destinos válidos
+    if 999 in destinos_validos:
+        pygame.draw.rect(surface, HIGHLIGHT, off_rect_blanco, 4, border_radius=8)
+    if 998 in destinos_validos:
+        pygame.draw.rect(surface, HIGHLIGHT, off_rect_negro, 4, border_radius=8)
 
     return hitmap, full_board_rect
 
@@ -423,61 +472,247 @@ def calcular_destinos_validos(juego, origen, dados_disponibles, color):
     return destinos
 
 def main():
-    """Función principal de la interfaz Pygame."""
-    print("=== INICIANDO PYGAME ===")
-    
-    try:
-        pygame.init()
-        print("✓ Pygame inicializado")
-        
-        pygame.display.set_caption("Backgammon (Pygame)")
-        screen = pygame.display.set_mode((WIDTH, HEIGHT))
-        print("✓ Ventana creada")
-        
-        clock = pygame.time.Clock()
-        font = pygame.font.SysFont(None, 20)
-        print("✓ Fuente cargada")
+    """Función principal de Pygame que replica la lógica del CLI."""
+    pygame.init()
+    pygame.display.set_caption("Backgammon (Pygame)")
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    clock = pygame.time.Clock()
+    font = pygame.font.SysFont(None, 24)
+    font_small = pygame.font.SysFont(None, 20)
 
-        # Crear tablero y configurar posición inicial
-        print("Creando tablero...")
-        tablero = Tablero()
-        print("✓ Tablero creado")
-        
-        tablero.setup()
-        print("✓ Tablero configurado")
+    # Inicializar juego
+    tablero = Tablero()
+    tablero.setup()
+    dados = Dice()
+    jugador_blanco = Player('B')
+    jugador_negro = Player('N')
+    juego = Juego(tablero, dados, jugador_blanco, jugador_negro)
 
-        hitmap = {}
+    # Variables de estado
+    color_ganador = None
+    tirada = []
+    selected_origin = None
+    destinos_validos = []
+    message = "Presiona ESPACIO para tirar los dados"
+    dados_tirados = False
 
-        print("=== ENTRANDO AL LOOP ===")
-        running = True
+    running = True
+    while running and not juego.gano('B') and not juego.gano('N'):
+        color = juego.obtener_jugador_actual().obtener_color()
+
+        for e in pygame.event.get():
+            if e.type == pygame.QUIT:
+                running = False
+                
+            elif e.type == pygame.KEYDOWN:
+                if e.key in (pygame.K_ESCAPE, pygame.K_q):
+                    running = False
+                    
+                elif e.key == pygame.K_SPACE and not dados_tirados:
+                    dados.tirar()
+                    tirada = juego.interpretar_tirada()
+                    dados_tirados = True
+                    message = f"Turno {color} - Dados: {tirada}"
+
+                    if not juego.hay_movimientos_posibles(color, tirada):
+                        message = "No hay movimientos posibles. Cambio de turno..."
+                        pygame.display.flip()
+                        pygame.time.wait(2000)
+                        juego.cambiar_turno()
+                        tirada = []
+                        dados_tirados = False
+                        selected_origin = None
+                        destinos_validos = []
+                        message = "Presiona ESPACIO para tirar los dados"
+                        
+                elif e.key == pygame.K_c:
+                    selected_origin = None
+                    destinos_validos = []
+                    message = f"Cancelado. Dados: {tirada}" if tirada else "Presiona ESPACIO"
+
+            elif e.type == pygame.MOUSEBUTTONDOWN and e.button == 3:
+                selected_origin = None
+                destinos_validos = []
+                message = f"Cancelado. Dados: {tirada}" if tirada else "Presiona ESPACIO"
+
+            elif e.type == pygame.MOUSEBUTTONDOWN and e.button == 1:
+                if not tirada:
+                    continue
+                
+                if not juego.hay_movimientos_posibles(color, tirada):
+                    message = "No hay más movimientos posibles"
+                    continue
+                    
+                hitmap, _ = render_board(screen, juego.tablero, font_small,
+                                        selected_origin, destinos_validos)
+                idx = hit_test(hitmap, e.pos)
+
+                if idx is None:
+                    continue
+
+                # SIN ORIGEN SELECCIONADO
+                if selected_origin is None:
+                    if juego.tablero.obtener_bar(color) and idx != -1:
+                        message = "¡Tenés fichas en barra! Clickea BAR (origen -1)"
+                        continue
+                    
+
+                    # Calcular destinos válidos para visualización
+                    destinos_validos = []
+                    for dado in tirada:
+                        if idx == -1:
+                            dest = dado - 1 if color == 'B' else 24 - dado
+                        else:
+                            dest = idx + dado if color == 'B' else idx - dado
+                        
+                        # Agregar OFF como destino válido si corresponde
+                        if color == 'B' and dest >= 24:
+                            if 999 not in destinos_validos:
+                                destinos_validos.append(999)
+                        elif color == 'N' and dest < 0:
+                            if 998 not in destinos_validos:
+                                destinos_validos.append(998)
+                        elif 0 <= dest <= 23 and dest not in destinos_validos:
+                            destinos_validos.append(dest)
+                    
+                    if destinos_validos:
+                        selected_origin = idx
+                        message = f"Origen {idx}. Click destino verde (dados: {tirada})"
+                    else:
+                        message = f"Sin movimientos desde {idx}"
+                
+                # CON ORIGEN SELECCIONADO
+                else:
+                    if idx == selected_origin:
+                        selected_origin = None
+                        destinos_validos = []
+                        message = f"Cancelado. Dados: {tirada}"
+                    else:
+                        # DETECTAR CLICK EN OFF (borneado)
+                        pasos_necesarios = None
+                        
+                        if idx == 999:  # OFF Blancas
+                            if color != 'B':
+                                message = "Esa zona OFF es para blancas"
+                                continue
+                            # Buscar dado que permita bornear
+                            for dado in sorted(tirada, reverse=True):
+                                destino_test = selected_origin + dado
+                                if destino_test >= 24:
+                                    pasos_necesarios = dado
+                                    break
+                            
+                            if pasos_necesarios is None:
+                                message = "Ningún dado te permite bornear desde ahí"
+                                continue
+                                
+                        elif idx == 998:  # OFF Negras
+                            if color != 'N':
+                                message = "Esa zona OFF es para negras"
+                                continue
+                            for dado in sorted(tirada, reverse=True):
+                                destino_test = selected_origin - dado
+                                if destino_test < 0:
+                                    pasos_necesarios = dado
+                                    break
+                            
+                            if pasos_necesarios is None:
+                                message = "Ningún dado te permite bornear desde ahí"
+                                continue
+                        
+                        else:
+                            # Movimiento normal (no OFF)
+                            if selected_origin == -1:
+                                # Desde la barra
+                                pasos_necesarios = idx + 1 if color == 'B' else 24 - idx
+                            else:
+                                # Movimiento normal: calcular pasos según dirección del color
+                                if color == 'B':
+                                    # Blancas avanzan (aumentan índice)
+                                    if idx > selected_origin:
+                                        pasos_necesarios = idx - selected_origin
+                                    else:
+                                        message = f"Blancas deben avanzar (aumentar índice)"
+                                        selected_origin = None
+                                        destinos_validos = []
+                                        continue
+                                else:  # color == 'N'
+                                    # Negras retroceden (disminuyen índice)
+                                    if idx < selected_origin:
+                                        pasos_necesarios = selected_origin - idx
+                                    else:
+                                        message = f"Negras deben retroceder (disminuir índice)"
+                                        selected_origin = None
+                                        destinos_validos = []
+                                        continue
+                        
+                        # Verificar si ese dado está disponible
+                        if pasos_necesarios not in tirada:
+                            message = f"Ese valor ({pasos_necesarios}) no está en la tirada {tirada}"
+                            selected_origin = None
+                            destinos_validos = []
+                            continue
+                        
+                        # Intentar mover
+                        try:
+                            juego.mover(selected_origin, pasos_necesarios)
+                            tirada.remove(pasos_necesarios)
+                            message = f"✓ Movido {pasos_necesarios} pasos! Dados: {tirada}"
+                            selected_origin = None
+                            destinos_validos = []
+                            
+                            if juego.gano(color):
+                                color_ganador = color
+                                break
+                            
+                            if not tirada:
+                                juego.cambiar_turno()
+                                dados_tirados = False
+                                message = "Turno completado! Presiona ESPACIO"
+                            elif not juego.hay_movimientos_posibles(color, tirada):
+                                message = "No hay más movimientos. Cambio..."
+                                pygame.display.flip()
+                                pygame.time.wait(1500)
+                                juego.cambiar_turno()
+                                tirada = []
+                                dados_tirados = False
+                                message = "Presiona ESPACIO para tirar dados"
+                        
+                        except ValueError as e:
+                            message = f"Error: {e}"
+                            selected_origin = None
+                            destinos_validos = []
+
+        # Render
+        hitmap, _ = render_board(screen, juego.tablero, font_small, 
+                                selected_origin, destinos_validos)
+        if tirada:
+            draw_dice(screen, tirada, font)
+        draw_message(screen, message, font)
+
+        pygame.display.flip()
+        clock.tick(60)
+
+    # Detectar ganador
+    if color_ganador is None:
+        if juego.gano('B'):
+            color_ganador = 'B'
+        else:
+            color_ganador = 'N'
+
+    # Pantalla victoria
+    if running:
         while running:
             for e in pygame.event.get():
-                if e.type == pygame.QUIT:
-                    print("Cerrando por QUIT")
+                if e.type == pygame.QUIT or e.type == pygame.KEYDOWN:
                     running = False
-                elif e.type == pygame.KEYDOWN and e.key in (pygame.K_ESCAPE,
-                                                             pygame.K_q):
-                    print("Cerrando por ESC/Q")
-                    running = False
-                elif e.type == pygame.MOUSEBUTTONDOWN and e.button == 1:
-                    idx = hit_test(hitmap, e.pos)
-                    if idx is not None:
-                        print(f"Clickeaste el punto {idx}")
-
-            # Renderizar
-            hitmap = render_board(screen, tablero, font)
-
+            screen.fill(BG_COLOR)
+            draw_message(screen, f"¡El jugador {color_ganador} ha ganado!", font)
             pygame.display.flip()
             clock.tick(60)
 
-        print("=== CERRANDO PYGAME ===")
-        pygame.quit()
-        sys.exit()
-        
-    except Exception as e:
-        print(f"\n❌ ERROR: {e}")
-        import traceback
-        traceback.print_exc()
-        sys.exit(1)
+    pygame.quit()
+    sys.exit()
+
 if __name__ == '__main__':
     main()
