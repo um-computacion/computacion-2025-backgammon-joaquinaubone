@@ -4,7 +4,7 @@
 Name                  Stmts   Miss  Cover   Missing
 ---------------------------------------------------
 board/__init__.py         0      0   100%
-board/board.py           90      2    98%   94, 132
+board/board.py          100     11    89%   63-72, 107, 145
 checker/__init__.py       0      0   100%
 checker/checker.py        5      0   100%
 cli/__init__.py           0      0   100%
@@ -15,7 +15,7 @@ game/game.py            121      8    93%   86, 110, 116, 134, 140, 177, 190, 19
 player/__init__.py        0      0   100%
 player/player.py          5      0   100%
 ---------------------------------------------------
-TOTAL                   231     10    96%
+TOTAL                   241     19    92%
 
 ```
 ## Pylint Report
@@ -23,8 +23,11 @@ TOTAL                   231     10    96%
 ************* Module test.py
 test.py:1:0: F0001: No module named test.py (fatal)
 ************* Module main
-main.py:21:0: C0303: Trailing whitespace (trailing-whitespace)
-main.py:23:0: C0304: Final newline missing (missing-final-newline)
+main.py:26:0: C0303: Trailing whitespace (trailing-whitespace)
+main.py:33:0: C0303: Trailing whitespace (trailing-whitespace)
+main.py:45:0: C0303: Trailing whitespace (trailing-whitespace)
+main.py:52:0: C0304: Final newline missing (missing-final-newline)
+main.py:37:12: C0415: Import outside toplevel (pygameUI.pygame_ui.jugar_pygame) (import-outside-toplevel)
 
 -----------------------------------
 Your code has been rated at 0.00/10
