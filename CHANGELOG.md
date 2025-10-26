@@ -436,11 +436,40 @@ para evitar perdida de ficha cuando movimiento falla, se agrega:
 - Tests en clase `Dice`: uso correcto de `@patch` y validaciones de `randint`
 - Método `interpretar_tirada()` en clase `Juego` para manejar correctamente dados dobles
 
+## 2025-01-XX
 
-## 2025-10-20
-## agregado
+## Agregado
+Interfaz gráfica completa con Pygame (`pygameUI/pygame_ui.py`)
+- Tablero visual con triángulos alternados, barra central y zonas OFF
+- Fichas blancas y negras con bordes y efectos visuales
+- Sistema de resaltado: triángulo verde para origen, círculos verdes para destinos válidos
+- Detección de clicks en fichas (puntos 0-23), barra (-1) y zonas OFF (998, 999)
+- Indicadores visuales: dados actuales, mensajes de estado, contadores de fichas apiladas
+- Contadores de fichas en barra y OFF con formato "X/15"
+- Controles: ESPACIO para tirar dados, click izquierdo para mover, click derecho/C para cancelar
+- Validaciones: obligación de sacar fichas de barra, verificación de movimientos posibles
+- Detección automática de victoria y pantalla final
+- Integración completa con clases existentes: `Tablero`, `Juego`, `Dice`, `Player`
 
-Tests de método `gano()` actualizados para recibir parámetro `color`
-- 6 tests en `test_game.py` que fallaban con TypeError
-- Test `test_gano_color_invalido` modificado para verificar color inválido
-- Test `test_no_gano` expandido para verificar ambos colores al inicio
+## 2025-01-XX
+
+## Modificado
+Arquitectura de inicialización según principios SOLID
+- Las interfaces (`cli.jugar()` y `pygame_ui.jugar_pygame()`) reciben componentes por parámetro
+- Eliminada dependencia directa de interfaces con clases internas del juego
+- `pygame_ui.py` ya no importa `Tablero`, `Dice` ni `Player`
+- `pygame_ui.jugar_pygame()` cambió firma: ahora recibe `(tablero, dados, jugador_blanco, jugador_negro)`
+- Cumplimiento de Dependency Inversion Principle: interfaces dependen de componentes recibidos, no de clases concretas
+
+Menú de selección de interfaz en `main.py`
+- Agregado menú interactivo al iniciar con opciones CLI (1) y GUI (2)
+- Validación de entrada con bucle `while` hasta recibir opción válida
+- Manejo de error si Pygame no está instalado con fallback automático a CLI
+- Mensajes informativos sobre instalación de Pygame cuando falta dependencia
+- Import condicional de `pygame_ui.jugar_pygame()` solo cuando usuario elige GUI
+
+Separación clara de responsabilidades
+- `main.py`: Crea todos los componentes del juego y elige interfaz
+- `cli/cli.py`: Solo ejecuta lógica CLI, recibe componentes por parámetro
+- `pygameUI/pygame_ui.py`: Solo ejecuta lógica Pygame, recibe componentes por parámetro
+- Ninguna interfaz conoce cómo instanciar las clases del juego
