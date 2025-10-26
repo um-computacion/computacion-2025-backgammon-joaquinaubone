@@ -4,6 +4,7 @@ Contiene la función principal `jugar` que maneja la interacción
 con el usuario a través de la línea de comandos.
 """
 from game.game import Juego
+from exceptions import PosicionInvalidaException
 
 def jugar(tablero, dados, jugador_blanco, jugador_negro):
     """Ejecuta el flujo principal del juego Backgammon desde la línea de comandos."""
@@ -50,7 +51,7 @@ def jugar(tablero, dados, jugador_blanco, jugador_negro):
                 juego.mover(origen, pasos)
                 tirada.remove(pasos)
 
-            except ValueError as e:
+            except PosicionInvalidaException as e:
                 print(f"Error: {e}")
                 continue
 

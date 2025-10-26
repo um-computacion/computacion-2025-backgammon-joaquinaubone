@@ -436,7 +436,7 @@ para evitar perdida de ficha cuando movimiento falla, se agrega:
 - Tests en clase `Dice`: uso correcto de `@patch` y validaciones de `randint`
 - Método `interpretar_tirada()` en clase `Juego` para manejar correctamente dados dobles
 
-## 2025-01-XX
+## 2025-10-21
 
 ## Agregado
 Interfaz gráfica completa con Pygame (`pygameUI/pygame_ui.py`)
@@ -451,7 +451,7 @@ Interfaz gráfica completa con Pygame (`pygameUI/pygame_ui.py`)
 - Detección automática de victoria y pantalla final
 - Integración completa con clases existentes: `Tablero`, `Juego`, `Dice`, `Player`
 
-## 2025-01-XX
+## 2025-10-25
 
 ## Modificado
 Arquitectura de inicialización según principios SOLID
@@ -473,3 +473,28 @@ Separación clara de responsabilidades
 - `cli/cli.py`: Solo ejecuta lógica CLI, recibe componentes por parámetro
 - `pygameUI/pygame_ui.py`: Solo ejecuta lógica Pygame, recibe componentes por parámetro
 - Ninguna interfaz conoce cómo instanciar las clases del juego
+
+## 2025-10-25
+
+### Agregado
+Sistema de manejo de errores con excepciones personalizadas
+- Archivo `exceptions.py` con jerarquía de excepciones del dominio Backgammon
+  - `BackgammonException`: Clase base para todas las excepciones del juego
+  - `PosicionInvalidaException`: Para accesos a posiciones fuera del rango 0-23
+  - `ColorInvalidoException`: Para colores de jugador inválidos (no 'B' ni 'N')
+- Actualización de `board/board.py`:
+  - Método `get_point()` lanza `PosicionInvalidaException` en lugar de `IndexError`
+  - Métodos `obtener_bar()` y `obtener_off()` lanzan `ColorInvalidoException` en lugar de `ValueError` genérico
+  - Mensajes de error más descriptivos con información del valor inválido
+  - Docstrings actualizados con sección `Raises` documentando excepciones
+- Actualización de `game/game.py`:
+  - Método `__sacar_de_tablero()` lanza `PosicionInvalidaException` para posiciones fuera de rango
+  - Try-except en `mover()` actualizado para capturar excepciones personalizadas en el rollback
+  - Import de excepciones personalizadas desde módulo `exceptions`
+  - Docstrings actualizados documentando excepciones que pueden lanzarse
+- Actualización de `cli/cli.py`:
+  - Manejo específico de `PosicionInvalidaException` con mensaje y tip contextual
+  - Manejo específico de `ColorInvalidoException` 
+  - Captura de `ValueError` para validaciones de reglas del juego
+  - Captura genérica de `BackgammonException` como fallback
+  - Mensajes de error mejorados con emojis y consejos para el usuario

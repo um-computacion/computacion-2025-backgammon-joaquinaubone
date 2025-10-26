@@ -1,5 +1,7 @@
 """Módulo Game: Coordina la lógica general del flujo del juego de Backgammon."""
 
+from exceptions import PosNoExistenteException, PosicionInvalida
+
 class Juego:
     """Clase principal que controla la lógica general del juego de Backgammon."""
 
@@ -137,7 +139,7 @@ class Juego:
     def __sacar_de_tablero(self, origen, color):
         """Saca una ficha desde el tablero."""
         if not 0 <= origen <= 23:
-            raise ValueError("Posición de origen fuera del tablero.")
+            raise PosicionInvalida("Posición de origen fuera del tablero.")
 
         punto = self.tablero.get_point(origen)
         if not punto:
