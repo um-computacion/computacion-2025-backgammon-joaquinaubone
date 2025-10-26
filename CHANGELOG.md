@@ -450,3 +450,26 @@ Interfaz gráfica completa con Pygame (`pygameUI/pygame_ui.py`)
 - Validaciones: obligación de sacar fichas de barra, verificación de movimientos posibles
 - Detección automática de victoria y pantalla final
 - Integración completa con clases existentes: `Tablero`, `Juego`, `Dice`, `Player`
+
+## 2025-01-XX
+
+## Modificado
+Arquitectura de inicialización según principios SOLID
+- Las interfaces (`cli.jugar()` y `pygame_ui.jugar_pygame()`) reciben componentes por parámetro
+- Eliminada dependencia directa de interfaces con clases internas del juego
+- `pygame_ui.py` ya no importa `Tablero`, `Dice` ni `Player`
+- `pygame_ui.jugar_pygame()` cambió firma: ahora recibe `(tablero, dados, jugador_blanco, jugador_negro)`
+- Cumplimiento de Dependency Inversion Principle: interfaces dependen de componentes recibidos, no de clases concretas
+
+Menú de selección de interfaz en `main.py`
+- Agregado menú interactivo al iniciar con opciones CLI (1) y GUI (2)
+- Validación de entrada con bucle `while` hasta recibir opción válida
+- Manejo de error si Pygame no está instalado con fallback automático a CLI
+- Mensajes informativos sobre instalación de Pygame cuando falta dependencia
+- Import condicional de `pygame_ui.jugar_pygame()` solo cuando usuario elige GUI
+
+Separación clara de responsabilidades
+- `main.py`: Crea todos los componentes del juego y elige interfaz
+- `cli/cli.py`: Solo ejecuta lógica CLI, recibe componentes por parámetro
+- `pygameUI/pygame_ui.py`: Solo ejecuta lógica Pygame, recibe componentes por parámetro
+- Ninguna interfaz conoce cómo instanciar las clases del juego

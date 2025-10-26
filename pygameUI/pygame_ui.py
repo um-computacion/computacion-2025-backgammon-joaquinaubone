@@ -7,9 +7,6 @@ import copy
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from game.game import Juego
-from board.board import Tablero
-from dice.dice import Dice
-from player.player import Player
 
 # ------------------ Config visual ------------------
 WIDTH, HEIGHT = 1000, 700
@@ -471,7 +468,7 @@ def calcular_destinos_validos(juego, origen, dados_disponibles, color):
     
     return destinos
 
-def main():
+def jugar_pygame(tablero, dados, jugador_blanco, jugador_negro):
     """Función principal de Pygame que replica la lógica del CLI."""
     pygame.init()
     pygame.display.set_caption("Backgammon (Pygame)")
@@ -481,11 +478,6 @@ def main():
     font_small = pygame.font.SysFont(None, 20)
 
     # Inicializar juego
-    tablero = Tablero()
-    tablero.setup()
-    dados = Dice()
-    jugador_blanco = Player('B')
-    jugador_negro = Player('N')
     juego = Juego(tablero, dados, jugador_blanco, jugador_negro)
 
     # Variables de estado
@@ -713,6 +705,3 @@ def main():
 
     pygame.quit()
     sys.exit()
-
-if __name__ == '__main__':
-    main()
