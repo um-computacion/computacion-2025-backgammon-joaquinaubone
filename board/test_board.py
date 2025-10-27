@@ -1,7 +1,8 @@
 
 """ Módulo de pruebas unitarias para la clase Tablero del juego de backgammon."""
 import unittest
-from board.board import Tablero, PosNoExistenteException
+from board.board import Tablero
+from exceptions import ColorInvalidoException, PosNoExistenteException
 
 class TestTablero(unittest.TestCase):
     """Clase de pruebas para Tablero."""
@@ -56,13 +57,13 @@ class TestTablero(unittest.TestCase):
     def test_obtener_bar_color_invalido(self): 
         """Verifica excepción al pedir barra con color inválido."""
         tablero = Tablero()
-        with self.assertRaises(ValueError):
+        with self.assertRaises(ColorInvalidoException):
             tablero.obtener_bar('X')
     
     def test_obtener_off_color_invalido(self):
         """Verifica excepción al pedir off con color inválido."""
         tablero = Tablero()
-        with self.assertRaises(ValueError):
+        with self.assertRaises(ColorInvalidoException):
             tablero.obtener_off('X')
 
     def test_obtener_off_blanca(self): 

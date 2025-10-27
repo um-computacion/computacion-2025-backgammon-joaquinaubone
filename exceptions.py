@@ -22,6 +22,6 @@ class ColorInvalidoException(BackgammonException):
     """Excepción lanzada cuando se usa un color de jugador inválido."""
     pass
 
-class PosicionInvalidaBackgammonException:
+class PosicionInvalida(BackgammonException):
     """Excepción lanzada cuando se usa una posición inválida en el tablero."""
     pass

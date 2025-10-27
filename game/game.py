@@ -1,6 +1,6 @@
 """Módulo Game: Coordina la lógica general del flujo del juego de Backgammon."""
 
-from exceptions import PosNoExistenteException, PosicionInvalida
+from exceptions import PosicionInvalida
 
 class Juego:
     """Clase principal que controla la lógica general del juego de Backgammon."""
