@@ -8,6 +8,7 @@ from game.game import Juego
 from board.board import Tablero
 from player.player import Player
 from dice.dice import Dice
+from exceptions import ColorInvalidoException
 
 
 class TestJuego(unittest.TestCase):
@@ -80,7 +81,7 @@ class TestJuego(unittest.TestCase):
     def test_gano_color_invalido(self):
         """Verifica comportamiento con color inválido."""
         self.game.turno_actual = 'X'
-        with self.assertRaises(ValueError):
+        with self.assertRaises(ColorInvalidoException):
             self.game.gano('X')
 
     def test_no_gano(self):
@@ -221,6 +222,9 @@ class TestJuego(unittest.TestCase):
 
     def test_mover_sin_poder_sacar_blancas(self):
         """Verifica que no se puede sacar sin tener todas en casa."""
+        for i in range(24):
+            self.tablero.get_point(i).clear()
+        self.tablero.get_point(17).append('B')  # fuera de casa
         with self.assertRaises(ValueError):
             self.game.mover(23, 1)
 
@@ -247,7 +251,7 @@ class TestJuego(unittest.TestCase):
             bar_despues = len(tablero.obtener_bar('N'))
             # La ficha negra debería estar en la barra
             self.assertEqual(bar_despues, bar_antes + 1)
-        except (ValueError, KeyError):
+        except ValueError:
             pass
 
     def test_no_puede_mover_a_casilla_con_dos_rivales(self):

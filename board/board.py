@@ -3,9 +3,7 @@
 Contiene toda la lógica relacionada con las posiciones, movimientos,
 borneado, barra y verificación de condiciones de victoria.
 """
-
-class PosNoExistenteException(Exception):
-    """Excepción lanzada cuando se intenta acceder a una posición inválida del tablero."""
+from exceptions import ColorInvalidoException, PosNoExistenteException
 
 class Tablero:
     """Clase principal que representa el tablero y su estado."""
@@ -48,7 +46,7 @@ class Tablero:
             return self.__bar_blanco__
         if color == 'N':
             return self.__bar_negro__
-        raise ValueError("Color no válido. Use B para blanco o N para negro")
+        raise ColorInvalidoException("Color no válido. Use B para blanco o N para negro")
         
     def obtener_off(self, color): 
         """Devuelve la lista de fichas borneadas (fuera del tablero)."""
@@ -56,7 +54,7 @@ class Tablero:
             return self.__off_blanco__
         if color == 'N':
             return self.__off_negro__
-        raise ValueError("Color no válido. Use B para blanco o N para negro")
+        raise ColorInvalidoException("Color no válido. Use B para blanco o N para negro")
     
     def to_pygame_format(self):
         """Convierte el tablero al formato que Pygame espera."""
