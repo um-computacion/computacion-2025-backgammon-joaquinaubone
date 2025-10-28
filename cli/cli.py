@@ -38,9 +38,13 @@ def jugar(tablero, dados, jugador_blanco, jugador_negro):
 
 
             try:
-                origen = int(input("Ingresá la casilla de origen (-1 si estás en barra): "))
-                pasos = int(input("Ingresá la cantidad de pasos: "))
-
+                try:
+                    origen = int(input("Ingresá la casilla de origen (-1 si estás en barra): "))
+                    pasos = int(input("Ingresá la cantidad de pasos: "))
+                except ValueError:
+                    print("Entrada inválida. Por favor, ingresá números enteros.")
+                    continue
+                
                 if pasos not in tirada:
                     print("Ese valor no está en la tirada. Intentá con otro.")
                     continue

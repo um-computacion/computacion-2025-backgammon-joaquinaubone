@@ -177,11 +177,7 @@ class TestCLI(unittest.TestCase):
     @patch('builtins.input', side_effect=['5', '3'])
     @patch('cli.cli.Juego')
     def test_maneja_entrada_invalida(self, mock_juego_class, _):
-        """Verifica que el flujo funciona correctamente.
-
-        NOTA: Este test originalmente debía verificar manejo de entradas
-        inválidas, pero el CLI actual no permite testearlo sin modificarlo.
-        """
+        """Verifica que el flujo funciona correctamente. """
         mock_juego = Mock()
         mock_juego_class.return_value = mock_juego
 
