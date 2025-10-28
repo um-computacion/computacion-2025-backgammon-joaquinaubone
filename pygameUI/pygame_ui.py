@@ -1,11 +1,7 @@
 """Interfaz gráfica del juego de Backgammon usando Pygame."""
 import sys
-from pathlib import Path
-import pygame
 import copy
-# Agregar el directorio raíz al path
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
+import pygame
 from game.game import Juego
 
 # ------------------ Config visual ------------------
@@ -38,7 +34,8 @@ def point_index_to_display(idx):
     return 'bottom', idx - 12
 
 
-def draw_triangle_in_area(surface, area_rect, col_index, row, color, highlight=False):
+def draw_triangle_in_area(surface, area_rect, col_index, row, color,
+                           highlight=False):
     """Dibuja un triángulo dentro de un área específica.
     
     Args:
@@ -64,7 +61,8 @@ def draw_triangle_in_area(surface, area_rect, col_index, row, color, highlight=F
     final_color = HIGHLIGHT if highlight else color
     pygame.draw.polygon(surface, final_color, pts)
 
-def draw_checker(surface, center, radius, color_rgb, label=None, font=None):
+def draw_checker(surface, center, radius, color_rgb, label=None,
+                  font=None):
     """Dibuja una ficha circular.
     
     Args:
@@ -83,7 +81,8 @@ def draw_checker(surface, center, radius, color_rgb, label=None, font=None):
         rect = txt.get_rect(center=center)
         surface.blit(txt, rect)
 
-def render_board(surface, tablero, font, selected_point=None, destinos_validos=None):
+def render_board(surface, tablero, font, selected_point=None,
+                  destinos_validos=None):
     """Dibuja el tablero con barra separada, resalta origen y destinos válidos.
     
     Args:
@@ -150,24 +149,24 @@ def render_board(surface, tablero, font, selected_point=None, destinos_validos=N
     # Dibujar triángulos IZQUIERDA
     for i in range(6):
         idx_top = 11 - i
-        highlight_top = (selected_point == idx_top)
+        highlight_top = selected_point == idx_top
         draw_triangle_in_area(surface, left_rect, i, 'top',
                              TRI_A if i % 2 == 0 else TRI_B, highlight_top)
         
         idx_bottom = 12 + i
-        highlight_bottom = (selected_point == idx_bottom)
+        highlight_bottom = selected_point == idx_bottom
         draw_triangle_in_area(surface, left_rect, i, 'bottom',
                              TRI_B if i % 2 == 0 else TRI_A, highlight_bottom)
 
     # Dibujar triángulos DERECHA
     for i in range(6):
         idx_top = 5 - i
-        highlight_top = (selected_point == idx_top)
+        highlight_top = selected_point == idx_top
         draw_triangle_in_area(surface, right_rect, i, 'top',
                              TRI_A if i % 2 == 0 else TRI_B, highlight_top)
         
         idx_bottom = 18 + i
-        highlight_bottom = (selected_point == idx_bottom)
+        highlight_bottom = selected_point == idx_bottom
         draw_triangle_in_area(surface, right_rect, i, 'bottom',
                              TRI_B if i % 2 == 0 else TRI_A, highlight_bottom)
 
@@ -228,7 +227,9 @@ def render_board(surface, tablero, font, selected_point=None, destinos_validos=N
         start_y = bar_rect.bottom - radius - 6
         for i in range(min(len(bar_blanco), MAX_VISIBLE_STACK)):
             cy = start_y - i * step
-            label = len(bar_blanco) if i == min(len(bar_blanco), MAX_VISIBLE_STACK) - 1 and len(bar_blanco) > MAX_VISIBLE_STACK else None
+            mostrar_total = (i == min(len(bar_blanco), MAX_VISIBLE_STACK) - 1
+                            and len(bar_blanco) > MAX_VISIBLE_STACK)
+            label = len(bar_blanco) if mostrar_total else None
             draw_checker(surface, (bar_rect.centerx, cy), radius, WHITE, label, font)
             hitmap[-1].append((bar_rect.centerx, cy, radius))
     
@@ -236,7 +237,9 @@ def render_board(surface, tablero, font, selected_point=None, destinos_validos=N
         start_y = bar_rect.top + radius + 6
         for i in range(min(len(bar_negro), MAX_VISIBLE_STACK)):
             cy = start_y + i * step
-            label = len(bar_negro) if i == min(len(bar_negro), MAX_VISIBLE_STACK) - 1 and len(bar_negro) > MAX_VISIBLE_STACK else None
+            mostrar_total = (i == min(len(bar_negro), MAX_VISIBLE_STACK) - 1
+                            and len(bar_negro) > MAX_VISIBLE_STACK)
+            label = len(bar_negro) if mostrar_total else None
             draw_checker(surface, (bar_rect.centerx, cy), radius, BLACK, label, font)
             hitmap[-1].append((bar_rect.centerx, cy, radius))
 
@@ -292,7 +295,7 @@ def render_board(surface, tablero, font, selected_point=None, destinos_validos=N
                      if count > MAX_VISIBLE_STACK else 0
             for i in range(visibles):
                 cy = start_y - i * step
-                label = extras if (extras and i == visibles - 1) else None
+                label = extras if ( extras and i == visibles - 1) else None
                 draw_checker(surface, (cx, cy), radius,
                            WHITE if color_name == 'white' else BLACK,
                            label, font)
@@ -302,7 +305,7 @@ def render_board(surface, tablero, font, selected_point=None, destinos_validos=N
     if destinos_validos:
         for dest_idx in destinos_validos:
             # Saltar OFF (998, 999) ya que se manejan por separado
-            if dest_idx == 998 or dest_idx == 999:
+            if dest_idx in (998, 999):
                 continue
             
             # Determinar posición según zona del tablero
@@ -454,7 +457,6 @@ def calcular_destinos_validos(juego, origen, dados_disponibles, color):
         # Verificar que el destino esté dentro del tablero
         if 0 <= destino <= 23:
             # Ahora SÍ verificar si es válido haciendo una copia temporal
-            tablero_temp = copy.deepcopy(juego.tablero)
             juego_temp = copy.deepcopy(juego)
             
             try:
@@ -462,10 +464,10 @@ def calcular_destinos_validos(juego, origen, dados_disponibles, color):
                 # Si no lanzó excepción, el movimiento es válido
                 if destino not in destinos:
                     destinos.append(destino)
-            except (ValueError, Exception):
+            except ValueError:
                 # Movimiento inválido, no agregar
                 pass
-    
+
     return destinos
 
 def jugar_pygame(tablero, dados, jugador_blanco, jugador_negro):
@@ -520,12 +522,16 @@ def jugar_pygame(tablero, dados, jugador_blanco, jugador_negro):
                 elif e.key == pygame.K_c:
                     selected_origin = None
                     destinos_validos = []
-                    message = f"Cancelado. Dados: {tirada}" if tirada else "Presiona ESPACIO"
+                    msg_dados = f"Dados: {tirada}" if tirada else \
+                        "Presiona ESPACIO"
+                    message = f"Cancelado. {msg_dados}"
 
             elif e.type == pygame.MOUSEBUTTONDOWN and e.button == 3:
                 selected_origin = None
                 destinos_validos = []
-                message = f"Cancelado. Dados: {tirada}" if tirada else "Presiona ESPACIO"
+                msg_dados = f"Dados: {tirada}" if tirada else \
+                    "Presiona ESPACIO"
+                message = f"Cancelado. {msg_dados}"
 
             elif e.type == pygame.MOUSEBUTTONDOWN and e.button == 1:
                 if not tirada:
@@ -545,7 +551,7 @@ def jugar_pygame(tablero, dados, jugador_blanco, jugador_negro):
                 # SIN ORIGEN SELECCIONADO
                 if selected_origin is None:
                     if juego.tablero.obtener_bar(color) and idx != -1:
-                        message = "¡Tenés fichas en barra! Clickea BAR (origen -1)"
+                        message = "¡Tenés fichas en barra! Clickea BAR"
                         continue
                     
 
@@ -569,7 +575,8 @@ def jugar_pygame(tablero, dados, jugador_blanco, jugador_negro):
                     
                     if destinos_validos:
                         selected_origin = idx
-                        message = f"Origen {idx}. Click destino verde (dados: {tirada})"
+                        message = (f"Origen {idx}. Click destino verde "
+                                  f"(dados: {tirada})")
                     else:
                         message = f"Sin movimientos desde {idx}"
                 
@@ -624,7 +631,7 @@ def jugar_pygame(tablero, dados, jugador_blanco, jugador_negro):
                                     if idx > selected_origin:
                                         pasos_necesarios = idx - selected_origin
                                     else:
-                                        message = f"Blancas deben avanzar (aumentar índice)"
+                                        message = "Blancas deben avanzar"
                                         selected_origin = None
                                         destinos_validos = []
                                         continue
@@ -633,14 +640,15 @@ def jugar_pygame(tablero, dados, jugador_blanco, jugador_negro):
                                     if idx < selected_origin:
                                         pasos_necesarios = selected_origin - idx
                                     else:
-                                        message = f"Negras deben retroceder (disminuir índice)"
+                                        message = "Negras deben retroceder"
                                         selected_origin = None
                                         destinos_validos = []
                                         continue
                         
                         # Verificar si ese dado está disponible
                         if pasos_necesarios not in tirada:
-                            message = f"Ese valor ({pasos_necesarios}) no está en la tirada {tirada}"
+                            message = (f"Ese valor ({pasos_necesarios}) no "
+                                      f"está en la tirada {tirada}")
                             selected_origin = None
                             destinos_validos = []
                             continue
@@ -649,7 +657,8 @@ def jugar_pygame(tablero, dados, jugador_blanco, jugador_negro):
                         try:
                             juego.mover(selected_origin, pasos_necesarios)
                             tirada.remove(pasos_necesarios)
-                            message = f"✓ Movido {pasos_necesarios} pasos! Dados: {tirada}"
+                            message = (f"✓ Movido {pasos_necesarios} pasos! "
+                                      f"Dados: {tirada}")
                             selected_origin = None
                             destinos_validos = []
                             
@@ -661,7 +670,8 @@ def jugar_pygame(tablero, dados, jugador_blanco, jugador_negro):
                                 juego.cambiar_turno()
                                 dados_tirados = False
                                 message = "Turno completado! Presiona ESPACIO"
-                            elif not juego.hay_movimientos_posibles(color, tirada):
+                            elif not juego.hay_movimientos_posibles(color,
+                                                                     tirada):
                                 message = "No hay más movimientos. Cambio..."
                                 pygame.display.flip()
                                 pygame.time.wait(1500)
@@ -670,8 +680,8 @@ def jugar_pygame(tablero, dados, jugador_blanco, jugador_negro):
                                 dados_tirados = False
                                 message = "Presiona ESPACIO para tirar dados"
                         
-                        except ValueError as e:
-                            message = f"Error: {e}"
+                        except ValueError as exc:
+                            message = f"Error: {exc}"
                             selected_origin = None
                             destinos_validos = []
 
@@ -696,10 +706,11 @@ def jugar_pygame(tablero, dados, jugador_blanco, jugador_negro):
     if running:
         while running:
             for e in pygame.event.get():
-                if e.type == pygame.QUIT or e.type == pygame.KEYDOWN:
+                if e.type in (pygame.QUIT, pygame.KEYDOWN):
                     running = False
             screen.fill(BG_COLOR)
-            draw_message(screen, f"¡El jugador {color_ganador} ha ganado!", font)
+            draw_message(screen,
+                          f"¡El jugador {color_ganador} ha ganado!", font)
             pygame.display.flip()
             clock.tick(60)
 

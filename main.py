@@ -7,6 +7,7 @@ from board.board import Tablero
 from dice.dice import Dice
 from player.player import Player
 from cli.cli import jugar
+from pygameUI.pygame_ui import jugar_pygame
 
 def main():
     """Punto de entrada del programa. Configura los objetos principales y lanza el juego."""
@@ -34,7 +35,6 @@ def main():
 
     if opcion == '2':
         try:
-            from pygameUI.pygame_ui import jugar_pygame
             print("\nIniciando interfaz gráfica...\n")
             jugar_pygame(tablero, dados, jugador_blanco, jugador_negro)
         except ImportError:

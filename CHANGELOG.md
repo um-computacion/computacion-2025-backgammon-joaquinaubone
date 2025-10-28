@@ -526,3 +526,15 @@ Adaptación de tests CLI para compatibilidad con manejo de errores actual
     - Ejemplo: `[False, False, True, False]` → `[False, False, True, False, True, False]`
     - Razón: El código CLI verifica victoria dos veces más después del loop principal
 
+## 2025-10-27
+
+### Corregido
+Errores de estilo en `pygameUI/pygame_ui.py` según pylint
+- Eliminados espacios en blanco al final de 45 líneas (trailing whitespace)
+- Partidas líneas largas que excedían límite de 100 caracteres en expresiones ternarias de label_txt
+- Removidos paréntesis innecesarios en asignación de highlight_top
+- Eliminado import no utilizado de pathlib.Path
+- Simplificada lógica de imports eliminando modificación de sys.path (no necesaria al ejecutar desde main.py)
+- Cambiado manejo de excepción genérica Exception a ValueError específico
+- Agregada línea en blanco al final del archivo según estándar POSIX
+- Mejorada legibilidad con variables intermedias para condiciones complejas (mostrar_total en fichas de barra)
