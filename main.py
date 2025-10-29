@@ -3,9 +3,7 @@
 Inicializa los componentes principales del juego (tablero, dados y jugadores)
 y ejecuta la interfaz CLI para comenzar la partida.
 """
-from board.board import Tablero
-from dice.dice import Dice
-from player.player import Player
+from core.game import Juego
 from cli.cli import jugar
 from pygameUI.pygame_ui import jugar_pygame
 
@@ -18,6 +16,7 @@ def main():
     print("1. CLI (texto)")
     print("2. GUI (gráfica con Pygame)")
     print("=" * 50)
+    juego = Juego()
 
     while True:
         opcion = input("Ingresa tu opción (1 o 2): ")
@@ -25,27 +24,19 @@ def main():
             break
         print(" Opción inválida. Por favor ingresa 1 o 2.\n")
     
-    tablero = Tablero()
-    tablero.setup()
-    dados = Dice()
-    jugador_blanco = Player('B')
-    jugador_negro = Player('N')
-
-    
-
     if opcion == '2':
         try:
             print("\nIniciando interfaz gráfica...\n")
-            jugar_pygame(tablero, dados, jugador_blanco, jugador_negro)
+            jugar_pygame(juego)
         except ImportError:
             print("\n  Error: Pygame no está instalado.")
             print("Instalalo con: pip install pygame")
             print("\nIniciando CLI en su lugar...\n")
-            jugar(tablero, dados, jugador_blanco, jugador_negro)
+            jugar(juego)
             
     else:
         print("\nIniciando interfaz CLI...\n")
-        jugar(tablero, dados, jugador_blanco, jugador_negro)
+        jugar(juego)
 
 
 if __name__ == '__main__':

@@ -3,20 +3,21 @@
 Contiene la función principal `jugar` que maneja la interacción
 con el usuario a través de la línea de comandos.
 """
-from game.game import Juego
+from core.game import Juego
 from exceptions import PosicionInvalida
 
-def jugar(tablero, dados, jugador_blanco, jugador_negro):
+def jugar(juego):
     """Ejecuta el flujo principal del juego Backgammon desde la línea de comandos."""
     
-    juego = Juego(tablero, dados, jugador_blanco, jugador_negro)
     color_ganador = None
 
     while not juego.gano('B') and not juego.gano('N'):
-        color = juego.obtener_jugador_actual().obtener_color()
+        jugador_actual = juego.obtener_jugador_actual()
+        color = jugador_actual.obtener_color()
+        simbolo = jugador_actual.obtener_simbolo()
         print(f"Turno del jugador {color}")
 
-        dados.tirar()
+        juego.dados.tirar()
         tirada = juego.interpretar_tirada()
         print(f"Dados: {tirada}")
 
@@ -28,41 +29,35 @@ def jugar(tablero, dados, jugador_blanco, jugador_negro):
 
         while tirada:
 
-            if not juego.hay_movimientos_posibles(color, tirada):
-                print("No hay más movimientos posibles para los dados restantes.")
-                break 
-
             print("\n📍 Estado actual del tablero:")
-            tablero.mostrar()
+            juego.tablero.mostrar()
             print(f"Valores disponibles: {tirada}")
 
-
             try:
-                try:
-                    origen = int(input("Ingresá la casilla de origen (-1 si estás en barra): "))
-                    pasos = int(input("Ingresá la cantidad de pasos: "))
-                except ValueError:
-                    print("Entrada inválida. Por favor, ingresá números enteros.")
-                    continue
-                
-                if pasos not in tirada:
-                    print("Ese valor no está en la tirada. Intentá con otro.")
-                    continue
-
-                if tablero.obtener_bar(color) and origen != -1:
-                    print("Tenés fichas en la barra. Primero debés moverlas (origen = -1).")
-                    continue
-
-                juego.mover(origen, pasos)
-                tirada.remove(pasos)
-
-            except PosicionInvalida as e:
-                print(f"Error: {e}")
+                origen = int(input("Ingresá la casilla de origen (-1 si estás en barra): "))
+                pasos = int(input("Ingresá la cantidad de pasos: "))
+            except ValueError:
+                print("Entrada inválida. Por favor, ingresá números enteros.")
                 continue
+            try:
+                juego.mover(origen, pasos)
+                if juego.gano(color):
+                    ganador = juego.obtener_jugador_actual()
+                    print(f"\n🎉 ¡El jugador {ganador.obtener_simbolo()} (color: {ganador.obtener_color()}) ha ganado!")
 
-        if juego.gano(color):
-            color_ganador = color
-            break
+                    return
+                if pasos in tirada:
+                    tirada.remove(pasos)
+            except ValueError as e:
+                print(f"movimiento inválido:")
+                continue
+            if not tirada:
+                print("No quedan más movimientos en esta tirada.")
+                break
+
+            if juego.gano(color):
+                color_ganador = color
+                break
 
         juego.cambiar_turno()
     
@@ -71,5 +66,8 @@ def jugar(tablero, dados, jugador_blanco, jugador_negro):
             color_ganador = 'B'
         elif juego.gano('N'):
             color_ganador = 'N'
+    jugador_ganador = juego.jugadores[color_ganador]
+    simbolo_ganador = jugador_ganador.obtener_simbolo()
 
-    print(f"\n ¡El jugador {color_ganador} ha ganado!")
+    print(f" ¡El jugador {simbolo_ganador} (color: {color_ganador}) ha ganado! ")
+

@@ -1,16 +1,17 @@
 """Módulo Game: Coordina la lógica general del flujo del juego de Backgammon."""
-
+from core.board import Tablero
+from core.dice import Dice
+from core.player import Player
 from exceptions import PosicionInvalida
 
 class Juego:
     """Clase principal que controla la lógica general del juego de Backgammon."""
 
-    def __init__(self, tablero, dados, jugador_blanco, jugador_negro):
-        self.tablero = tablero
+    def __init__(self):
+        self.tablero = Tablero()
         self.turno_actual = 'B'  # Blanco empieza
-        self.dados = dados
-        self.jugadores = {'B': jugador_blanco, 'N': jugador_negro}
-
+        self.dados = Dice()
+        self.jugadores = {'B': Player('B'), 'N': Player('N')}
 
     def cambiar_turno(self): 
         """Alterna el turno entre los jugadores blanco y negro."""
@@ -32,7 +33,6 @@ class Juego:
     
     def gano(self, color):
         """Verifica si el jugador actual ha ganado (15 fichas borneadas)."""
-        color = self.turno_actual
         return len(self.tablero.obtener_off(color)) == 15
     
     def puede_sacar_ficha(self, color):
@@ -49,7 +49,7 @@ class Juego:
 
         for i in rango_prohibido:
             punto = self.tablero.get_point(i)
-            if punto and punto[0] == color:
+            if punto and punto[0].obtener_color() == color:
                 return False
         return True
     
@@ -64,10 +64,23 @@ class Juego:
     def mover(self, origen, pasos):
         """Ejecuta un movimiento aplicando todas las reglas del juego."""
         color = self.turno_actual
+        valores = self.interpretar_tirada() 
 
+        if self.tablero.obtener_bar(color) and origen != -1:
+            raise ValueError("Debe mover primero las fichas en la barra.")
+
+        if pasos not in valores:
+            raise ValueError("El valor de pasos no está en la tirada actual.")
         # Validar que tenga fichas en barra y solo pueda mover desde ahí
         if self.tablero.obtener_bar(color) and origen != -1:
             raise ValueError("Debe mover primero las fichas en la barra.")
+        
+        if origen != -1:
+            casilla = self.tablero.get_point(origen)
+            if not casilla:
+                raise ValueError(f"No hay fichas en la casilla {origen}.")
+            if casilla[0].obtener_color() != color:
+                raise ValueError(f"La ficha en la casilla {origen} no pertenece al jugador {color}.")
 
         # Sacar ficha del origen
         if origen == -1:
@@ -125,7 +138,7 @@ class Juego:
         """Evalúa si una casilla es válida para mover una ficha."""
         return (
             not casilla                    # casilla vacía
-            or casilla[0] == color         # primera ficha del mismo color
+            or casilla[0].obtener_color() == color         # primera ficha del mismo color
             or len(casilla) == 1           # solo una ficha rival
         )
 
@@ -142,22 +155,23 @@ class Juego:
             raise PosicionInvalida("Posición de origen fuera del tablero.")
 
         punto = self.tablero.get_point(origen)
+
         if not punto:
             raise ValueError("No hay fichas en la casilla de origen.")
-        if punto[0] != color:
-            raise ValueError("La ficha no pertenece al jugador.")
-
-        return punto.pop()
+        ficha = punto[0]
+        if ficha.obtener_color() != color:
+            raise ValueError("La ficha en la casilla de origen no es del color correcto.")
+        return punto.pop(0)
 
     def __mover_a_destino(self, destino, ficha, color):
         """Coloca la ficha en la casilla destino, manejando capturas."""
         casilla = self.tablero.get_point(destino)
-
-        if not casilla or casilla[0] == color:
+        
+        if not casilla or casilla[0].obtener_color() == color:
             # Casilla vacía o del mismo color
             casilla.append(ficha)
 
-        elif len(casilla) == 1 and casilla[0] != color:
+        elif len(casilla) == 1 and casilla[0].obtener_color() != color:
             # Capturar ficha rival
             rival = casilla.pop()
             color_rival = 'B' if color == 'N' else 'N'
@@ -183,7 +197,7 @@ class Juego:
         """Verifica si alguna ficha en el tablero puede moverse."""
         for i in range(24):
             casilla = self.tablero.get_point(i)
-            if casilla and casilla[0] == color:
+            if casilla and casilla[0].obtener_color() == color:
                 for valor in valores_dado:
                     destino = i + valor * direccion
 
@@ -197,3 +211,27 @@ class Juego:
                         if self.__es_movimiento_valido(casilla_destino, color):
                             return True
         return False
+    
+    def obtener_estado_tablero_pygame(self):
+        """Devuelve el estado del tablero en formato para Pygame.
+        """
+        pos = []
+        for i in range(24):
+            punto = self.tablero.get_point(i)
+            if not punto:
+                pos.append(None)
+            else:
+                color = 'white' if punto[0].obtener_color() == 'B' else 'black'
+                cantidad = len(punto)
+                pos.append((color, cantidad))
+        return pos
+
+    def obtener_cantidad_barra(self, color):
+        """Devuelve la cantidad de fichas en la barra.
+        """
+        return len(self.tablero.obtener_bar(color))
+
+    def obtener_cantidad_off(self, color):
+        """Devuelve la cantidad de fichas borneadas.
+        """
+        return len(self.tablero.obtener_off(color))
