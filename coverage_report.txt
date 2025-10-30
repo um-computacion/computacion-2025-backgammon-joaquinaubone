@@ -1,17 +1,14 @@
-Name                  Stmts   Miss  Cover   Missing
----------------------------------------------------
-board/__init__.py         0      0   100%
-board/board.py          100     11    89%   61-70, 105, 143
-checker/__init__.py       0      0   100%
-checker/checker.py        5      0   100%
-cli/__init__.py           0      0   100%
-cli/cli.py               50      8    84%   32-33, 44-46, 53-54, 71
-dice/__init__.py          0      0   100%
-dice/dice.py             10      0   100%
-exceptions.py             8      0   100%
-game/__init__.py          0      0   100%
-game/game.py            122      8    93%   88, 112, 118, 136, 142, 179, 192, 199
-player/__init__.py        0      0   100%
-player/player.py          5      0   100%
----------------------------------------------------
-TOTAL                   300     27    91%
+Name                   Stmts   Miss  Cover   Missing
+----------------------------------------------------
+cli/__init__.py            0      0   100%
+cli/cli.py                52      5    90%   39-41, 59-60
+core/__init__.py           0      0   100%
+core/board.py             93      0   100%
+core/checker.py            9      0   100%
+core/dice.py              10      0   100%
+core/game.py             150     20    87%   18-21, 31, 42, 48, 53, 70, 76, 101, 110, 119, 155, 160, 163, 193, 205-207, 212
+core/player.py            14      0   100%
+exceptions.py              8      0   100%
+pygameUI/__init__.py       0      0   100%
+----------------------------------------------------
+TOTAL                    336     25    93%
