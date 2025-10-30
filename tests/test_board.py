@@ -1,7 +1,8 @@
 
 """ Módulo de pruebas unitarias para la clase Tablero del juego de backgammon."""
 import unittest
-from board.board import Tablero
+from core.board import Tablero
+from core.checker import Checker
 from exceptions import ColorInvalidoException, PosNoExistenteException
 
 class TestTablero(unittest.TestCase):
@@ -12,18 +13,42 @@ class TestTablero(unittest.TestCase):
         self.tablero = Tablero()
         self.tablero.setup()
     
-    def test_setup_inicial(self): 
+    def test_setup_inicial(self):
         """Verifica que se coloque cada pieza en su posición inicial."""
         tablero = Tablero()
         tablero.setup()
-        self.assertEqual(tablero.get_point(0), ['B', 'B'])
-        self.assertEqual(tablero.get_point(11), ['B'] * 5)
-        self.assertEqual(tablero.get_point(16), ['B'] * 3)
-        self.assertEqual(tablero.get_point(18), ['B'] * 5)
-        self.assertEqual(tablero.get_point(23), ['N'] * 2)
-        self.assertEqual(tablero.get_point(12), ['N'] * 5)
-        self.assertEqual(tablero.get_point(7), ['N'] * 3)
-        self.assertEqual(tablero.get_point(5), ['N'] * 5)
+
+        punto_0 = tablero.get_point(0)
+        self.assertEqual(len(punto_0), 2)
+        self.assertTrue(all(f.obtener_color() == 'B' for f in punto_0))
+
+        punto_11 = tablero.get_point(11)
+        self.assertEqual(len(punto_11), 5)
+        self.assertTrue(all(f.obtener_color() == 'B' for f in punto_11))
+
+        punto_16 = tablero.get_point(16)
+        self.assertEqual(len(punto_16), 3)
+        self.assertTrue(all(f.obtener_color() == 'B' for f in punto_16))
+
+        punto_18 = tablero.get_point(18)
+        self.assertEqual(len(punto_18), 5)
+        self.assertTrue(all(f.obtener_color() == 'B' for f in punto_18))
+
+        punto_23 = tablero.get_point(23)
+        self.assertEqual(len(punto_23), 2)
+        self.assertTrue(all(f.obtener_color() == 'N' for f in punto_23))
+
+        punto_12 = tablero.get_point(12)
+        self.assertEqual(len(punto_12), 5)
+        self.assertTrue(all(f.obtener_color() == 'N' for f in punto_12))
+
+        punto_7 = tablero.get_point(7)
+        self.assertEqual(len(punto_7), 3)
+        self.assertTrue(all(f.obtener_color() == 'N' for f in punto_7))
+
+        punto_5 = tablero.get_point(5)
+        self.assertEqual(len(punto_5), 5)
+        self.assertTrue(all(f.obtener_color() == 'N' for f in punto_5))
     
     def test_mostrar_no_falla(self):
         """Verifica que el método mostrar() no lance excepciones."""
@@ -75,6 +100,23 @@ class TestTablero(unittest.TestCase):
         """Verifica que el off negra esté vacío al inicio."""
         tablero = Tablero()
         self.assertEqual(tablero.obtener_off('N'), [])
+    
+    def test_mostrar_con_fichas_en_barra_blanca(self):
+        tablero = Tablero()
+        tablero.obtener_bar('B').append(Checker('B'))  # Una ficha blanca en barra
+        tablero.mostrar()  # Si no rompe, se ejecutó OK
+
+
+    def test_mostrar_con_fichas_en_barra_negra(self):
+        tablero = Tablero()
+        tablero.obtener_bar('N').append(Checker('N'))  # Una ficha negra en barra
+        tablero.mostrar()  # Si no rompe, se ejecutó OK
+
+
+    
+
+    
+
 
 if __name__ == '__main__':
     unittest.main()

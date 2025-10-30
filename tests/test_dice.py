@@ -1,7 +1,7 @@
 """Tests unitarios para la clase Dice."""
 import unittest
 from unittest.mock import patch
-from dice.dice import Dice
+from core.dice import Dice
 
 class TestDice(unittest.TestCase):
 

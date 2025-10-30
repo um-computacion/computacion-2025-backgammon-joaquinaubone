@@ -2,7 +2,7 @@
 import sys
 import copy
 import pygame
-from game.game import Juego
+from core.game import Juego
 
 # ------------------ Config visual ------------------
 WIDTH, HEIGHT = 1000, 700
@@ -81,7 +81,7 @@ def draw_checker(surface, center, radius, color_rgb, label=None,
         rect = txt.get_rect(center=center)
         surface.blit(txt, rect)
 
-def render_board(surface, tablero, font, selected_point=None,
+def render_board(surface, juego, font, selected_point=None,
                   destinos_validos=None):
     """Dibuja el tablero con barra separada, resalta origen y destinos válidos.
     
@@ -217,34 +217,32 @@ def render_board(surface, tablero, font, selected_point=None,
     # --- CREAR HITMAP ---
     hitmap = {i: [] for i in range(24)}
     hitmap[-1] = []
-    hitmap[998] = []  # OFF Negras
-    hitmap[999] = []  # OFF Blancas
     # Dibujar fichas en BARRA
-    bar_blanco = tablero.obtener_bar('B')
-    bar_negro = tablero.obtener_bar('N')
+    bar_blanco_count = juego.obtener_cantidad_barra('B')
+    bar_negro_count = juego.obtener_cantidad_barra('N')
     
-    if bar_blanco:
+    if bar_blanco_count > 0:
         start_y = bar_rect.bottom - radius - 6
-        for i in range(min(len(bar_blanco), MAX_VISIBLE_STACK)):
+        for i in range(min(bar_blanco_count, MAX_VISIBLE_STACK)):
             cy = start_y - i * step
-            mostrar_total = (i == min(len(bar_blanco), MAX_VISIBLE_STACK) - 1
-                            and len(bar_blanco) > MAX_VISIBLE_STACK)
-            label = len(bar_blanco) if mostrar_total else None
+            mostrar_total = (i == min(bar_blanco_count, MAX_VISIBLE_STACK) - 1 
+                            and bar_blanco_count > MAX_VISIBLE_STACK)
+            label = bar_blanco_count if mostrar_total else None
             draw_checker(surface, (bar_rect.centerx, cy), radius, WHITE, label, font)
             hitmap[-1].append((bar_rect.centerx, cy, radius))
     
-    if bar_negro:
+    if bar_negro_count > 0:
         start_y = bar_rect.top + radius + 6
-        for i in range(min(len(bar_negro), MAX_VISIBLE_STACK)):
+        for i in range(min(bar_negro_count, MAX_VISIBLE_STACK)):
             cy = start_y + i * step
-            mostrar_total = (i == min(len(bar_negro), MAX_VISIBLE_STACK) - 1
-                            and len(bar_negro) > MAX_VISIBLE_STACK)
-            label = len(bar_negro) if mostrar_total else None
+            mostrar_total = (i == min(bar_negro_count, MAX_VISIBLE_STACK) - 1
+                            and bar_negro_count > MAX_VISIBLE_STACK)
+            label = bar_negro_count if mostrar_total else None
             draw_checker(surface, (bar_rect.centerx, cy), radius, BLACK, label, font)
             hitmap[-1].append((bar_rect.centerx, cy, radius))
 
     # Convertir tablero a formato Pygame
-    pos = tablero.to_pygame_format()
+    pos = juego.obtener_estado_tablero_pygame()
 
     # Dibujar fichas en puntos
     for idx, cell in enumerate(pos):
@@ -349,11 +347,11 @@ def render_board(surface, tablero, font, selected_point=None,
     pygame.draw.rect(surface, (220, 255, 220), off_rect_blanco, border_radius=8)
     pygame.draw.rect(surface, LINE, off_rect_blanco, 2, border_radius=8)
     
-    off_blanco = tablero.obtener_off('B')
+    off_blanco = juego.obtener_cantidad_off('B')
     off_label_b = font.render("OFF B", True, TEXT)
     surface.blit(off_label_b, (off_x + 8, off_rect_blanco.top + 10))
-    if off_blanco:
-        count_label_b = font.render(f"{len(off_blanco)}/15", True, TEXT)
+    if off_blanco > 0:
+        count_label_b = font.render(f"{off_blanco}/15", True, TEXT)
         surface.blit(count_label_b, (off_x + 12, off_rect_blanco.centery - 5))
     
     # OFF para negras (arriba)
@@ -362,11 +360,11 @@ def render_board(surface, tablero, font, selected_point=None,
     pygame.draw.rect(surface, (220, 220, 255), off_rect_negro, border_radius=8)
     pygame.draw.rect(surface, LINE, off_rect_negro, 2, border_radius=8)
     
-    off_negro = tablero.obtener_off('N')
+    off_negro = juego.obtener_cantidad_off('N')
     off_label_n = font.render("OFF N", True, TEXT)
     surface.blit(off_label_n, (off_x + 8, off_rect_negro.top + 10))
-    if off_negro:
-        count_label_n = font.render(f"{len(off_negro)}/15", True, TEXT)
+    if off_negro > 0:
+        count_label_n = font.render(f"{off_negro}/15", True, TEXT)
         surface.blit(count_label_n, (off_x + 12, off_rect_negro.centery - 5))
     
     ## Hacer las zonas OFF clickeables
@@ -470,7 +468,7 @@ def calcular_destinos_validos(juego, origen, dados_disponibles, color):
 
     return destinos
 
-def jugar_pygame(tablero, dados, jugador_blanco, jugador_negro):
+def jugar_pygame(juego):
     """Función principal de Pygame que replica la lógica del CLI."""
     pygame.init()
     pygame.display.set_caption("Backgammon (Pygame)")
@@ -478,9 +476,6 @@ def jugar_pygame(tablero, dados, jugador_blanco, jugador_negro):
     clock = pygame.time.Clock()
     font = pygame.font.SysFont(None, 24)
     font_small = pygame.font.SysFont(None, 20)
-
-    # Inicializar juego
-    juego = Juego(tablero, dados, jugador_blanco, jugador_negro)
 
     # Variables de estado
     color_ganador = None
@@ -503,7 +498,7 @@ def jugar_pygame(tablero, dados, jugador_blanco, jugador_negro):
                     running = False
                     
                 elif e.key == pygame.K_SPACE and not dados_tirados:
-                    dados.tirar()
+                    juego.dados.tirar()
                     tirada = juego.interpretar_tirada()
                     dados_tirados = True
                     message = f"Turno {color} - Dados: {tirada}"
@@ -541,7 +536,7 @@ def jugar_pygame(tablero, dados, jugador_blanco, jugador_negro):
                     message = "No hay más movimientos posibles"
                     continue
                     
-                hitmap, _ = render_board(screen, juego.tablero, font_small,
+                hitmap, _ = render_board(screen, juego, font_small,
                                         selected_origin, destinos_validos)
                 idx = hit_test(hitmap, e.pos)
 
@@ -686,7 +681,7 @@ def jugar_pygame(tablero, dados, jugador_blanco, jugador_negro):
                             destinos_validos = []
 
         # Render
-        hitmap, _ = render_board(screen, juego.tablero, font_small, 
+        hitmap, _ = render_board(screen, juego, font_small, 
                                 selected_origin, destinos_validos)
         if tirada:
             draw_dice(screen, tirada, font)
@@ -709,8 +704,8 @@ def jugar_pygame(tablero, dados, jugador_blanco, jugador_negro):
                 if e.type in (pygame.QUIT, pygame.KEYDOWN):
                     running = False
             screen.fill(BG_COLOR)
-            draw_message(screen,
-                          f"¡El jugador {color_ganador} ha ganado!", font)
+            simbolo = juego.jugadores[color_ganador].obtener_simbolo()
+            draw_message(screen, f"¡El jugador {simbolo} ({color_ganador}) ha ganado!", font)
             pygame.display.flip()
             clock.tick(60)
 
