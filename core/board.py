@@ -19,21 +19,18 @@ class Tablero:
         self.__off_blanco__ = []
         self.__off_negro__ = []
         self.setup()
-    
+
     def setup(self): 
         """Configura el tablero con la posición inicial estándar de Backgammon."""
         self.__contenedor__ = [[] for _ in range(24)]
 
        # Configuración inicial con objetos Checker
-        self.__contenedor__[0] = [Checker('B') for _ in range(2)] 
-        self.__contenedor__[11] = [Checker('B') for _ in range(5)]
-        self.__contenedor__[16] = [Checker('B') for _ in range(3)]
-        self.__contenedor__[18] = [Checker('B') for _ in range(5)]
+        self.__contenedor__[0] = [Checker('N') for _ in range(1)] 
+        self.__off_negro__ = [Checker('N') for _ in range(14)]
+      
 
-        self.__contenedor__[23] = [Checker('N') for _ in range(2)]
-        self.__contenedor__[12] = [Checker('N') for _ in range(5)]
-        self.__contenedor__[7] = [Checker('N') for _ in range(3)]
-        self.__contenedor__[5] = [Checker('N') for _ in range(5)]
+        self.__contenedor__[17] = [Checker('B') for _ in range(15)]
+      
 
     def mostrar(self): 
         """Muestra el tablero con fichas apiladas verticalmente usando métodos públicos."""
@@ -131,7 +128,8 @@ class Tablero:
         print("└" + "─" * 37 + "┴" + "─" * 5 + "┴" + "─" * 37 + "┘")
         
         # Información adicional
-        print(f"\nBarra: X={len(bar_blanco)} O={len(bar_negro)}  |  OFF: X={len(off_blanco)} O={len(off_negro)}")
+        print(f"\nBarra: X={len(bar_blanco)} O={len(bar_negro)}  | "
+              f"OFF: X={len(off_blanco)} O={len(off_negro)}")
         print()
 
 
@@ -156,3 +154,5 @@ class Tablero:
         if color == 'N':
             return self.__off_negro__
         raise ColorInvalidoException("Color no válido. Use B para blanco o N para negro")
+    
+    

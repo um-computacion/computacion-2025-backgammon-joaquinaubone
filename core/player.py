@@ -4,19 +4,18 @@ from core.checker import Checker
 class Player:
     """Representa un jugador del juego de Backgammon."""
 
-    def __init__(self, color, nombre=None):
+    def __init__(self, color):
         """Inicializa un jugador con el color indicado."""
         self.__color__ = color
-        if nombre is None:
-            self.__nombre__ = "jugador_blanco" if color == "B" else "jugador_negro"
-        else:
-            self.__nombre__ = nombre
+        self.__nombre__ = "jugador_blanco" 
+        self.__nombre__ = "jugador_negro"
 
     def obtener_color(self):
         """Devuelve el color asignado al jugador ('B' o 'N')."""
         return self.__color__
     
     def obtener_nombre(self):
+        """devuelve nombre jugador"""
         return self.__nombre__
     
     def obtener_simbolo(self):

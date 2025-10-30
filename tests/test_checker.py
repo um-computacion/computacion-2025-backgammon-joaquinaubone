@@ -25,6 +25,16 @@ class TestFicha(unittest.TestCase):
         """Verifica que __repr__ devuelve la representación correcta para negras."""
         ficha = Checker('N')
         self.assertEqual(repr(ficha), "Checker('N')")
+    
+    def test_str_blanco(self):
+        """Verifica que __str__ devuelve 'X' para fichas blancas."""
+        ficha = Checker('B')
+        self.assertEqual(str(ficha), 'X')
+
+    def test_str_negro(self):
+        """Verifica que __str__ devuelve 'O' para fichas negras."""
+        ficha = Checker('N')
+        self.assertEqual(str(ficha), 'O')
 
     
 

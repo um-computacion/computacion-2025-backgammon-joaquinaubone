@@ -538,3 +538,25 @@ Errores de estilo en `pygameUI/pygame_ui.py` según pylint
 - Cambiado manejo de excepción genérica Exception a ValueError específico
 - Agregada línea en blanco al final del archivo según estándar POSIX
 - Mejorada legibilidad con variables intermedias para condiciones complejas (mostrar_total en fichas de barra)
+
+# Changelog
+
+Todos los cambios notables de este proyecto serán documentados en este archivo.
+
+---
+
+## 2025-10-29
+
+### Agregado
+Clase `Checker` para representar fichas del juego
+- Implementada clase `Checker` en `core/checker.py`
+- Métodos `__init__`, `obtener_color`, `__str__` ('X'/'O') y `__repr__`
+- Integrada en clase `Player` para método `obtener_simbolo()`
+Reorganización de estructura del repositorio
+- Reorganizadas carpetas `core/`, `cli/` y `tests/` para mejor modularidad
+- Actualizados imports en todos los módulos
+Cobertura de tests significativamente incrementada
+- Agregados tests completos para `Checker`: 100% cobertura
+- Agregados tests adicionales para `Player`: 100% cobertura (de 79%)
+- Agregados tests adicionales para `Game`: 87-100% cobertura (de 53%)
+- Corregidos tests en `CLI` para pasar correctamente (ajustados mocks y side_effects)

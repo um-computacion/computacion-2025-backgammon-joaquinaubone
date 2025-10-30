@@ -1,3 +1,5 @@
+"""Módulo Checker: representa una ficha individual del juego de Backgammon."""
+
 class Checker:
     """Representa una ficha del juego."""
     

@@ -13,6 +13,9 @@ class Juego:
         self.dados = Dice()
         self.jugadores = {'B': Player('B'), 'N': Player('N')}
 
+    def inicializar(self):
+        self.tablero.setup()
+        
     def cambiar_turno(self): 
         """Alterna el turno entre los jugadores blanco y negro."""
         if self.turno_actual == 'N':
@@ -71,16 +74,14 @@ class Juego:
 
         if pasos not in valores:
             raise ValueError("El valor de pasos no está en la tirada actual.")
-        # Validar que tenga fichas en barra y solo pueda mover desde ahí
-        if self.tablero.obtener_bar(color) and origen != -1:
-            raise ValueError("Debe mover primero las fichas en la barra.")
         
         if origen != -1:
             casilla = self.tablero.get_point(origen)
             if not casilla:
                 raise ValueError(f"No hay fichas en la casilla {origen}.")
             if casilla[0].obtener_color() != color:
-                raise ValueError(f"La ficha en la casilla {origen} no pertenece al jugador {color}.")
+                raise ValueError(f"La ficha en la casilla {origen} no pertenece "
+                                 " al jugador {color}.")
 
         # Sacar ficha del origen
         if origen == -1:
@@ -144,10 +145,10 @@ class Juego:
 
     def __sacar_de_barra(self, color):
         """Saca una ficha de la barra."""
-        bar = self.tablero.obtener_bar(color)
-        if not bar:
+        barra = self.tablero.obtener_bar(color)
+        if not barra:
             raise ValueError(f"No hay fichas {color} en la barra.")
-        return bar.pop()
+        return barra.pop()
 
     def __sacar_de_tablero(self, origen, color):
         """Saca una ficha desde el tablero."""
