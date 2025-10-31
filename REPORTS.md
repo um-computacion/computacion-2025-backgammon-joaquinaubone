@@ -9,12 +9,12 @@ core/__init__.py           0      0   100%
 core/board.py             93      0   100%
 core/checker.py            9      0   100%
 core/dice.py              10      0   100%
-core/game.py             148     19    87%   18-21, 31, 42, 48, 53, 70, 99, 108, 117, 153, 158, 161, 191, 203-205, 210
-core/player.py            13      1    92%   19
+core/game.py             148     17    89%   21, 31, 42, 48, 53, 70, 99, 108, 117, 153, 158, 161, 191, 203-205, 210
+core/player.py            14      0   100%
 exceptions.py              8      0   100%
 pygameUI/__init__.py       0      0   100%
 ----------------------------------------------------
-TOTAL                    324     25    92%
+TOTAL                    325     22    93%
 
 ```
 ## Pylint Report
@@ -86,9 +86,8 @@ core/game.py:212:0: C0303: Trailing whitespace (trailing-whitespace)
 core/game.py:29:8: W0632: Possible unbalanced tuple unpacking with sequence defined at line 9 of core.dice: left side has 2 labels, right side has 0 values (unbalanced-tuple-unpacking)
 core/game.py:64:4: R0912: Too many branches (14/12) (too-many-branches)
 ************* Module core.player
-core/player.py:10:42: C0303: Trailing whitespace (trailing-whitespace)
-core/player.py:16:0: C0303: Trailing whitespace (trailing-whitespace)
-core/player.py:20:0: C0303: Trailing whitespace (trailing-whitespace)
+core/player.py:18:0: C0303: Trailing whitespace (trailing-whitespace)
+core/player.py:22:0: C0303: Trailing whitespace (trailing-whitespace)
 ************* Module exceptions
 exceptions.py:11:0: C0301: Line too long (142/100) (line-too-long)
 exceptions.py:11:0: C0301: Line too long (142/100) (line-too-long)
@@ -157,7 +156,6 @@ pygameUI/pygame_ui.py:660:0: C0303: Trailing whitespace (trailing-whitespace)
 pygameUI/pygame_ui.py:674:0: C0303: Trailing whitespace (trailing-whitespace)
 pygameUI/pygame_ui.py:681:59: C0303: Trailing whitespace (trailing-whitespace)
 pygameUI/pygame_ui.py:710:0: C0304: Final newline missing (missing-final-newline)
-pygameUI/pygame_ui.py:3:0: E0401: Unable to import 'pygame' (import-error)
 pygameUI/pygame_ui.py:35:0: R0913: Too many arguments (6/5) (too-many-arguments)
 pygameUI/pygame_ui.py:35:0: R0917: Too many positional arguments (6/5) (too-many-positional-arguments)
 pygameUI/pygame_ui.py:62:0: R0913: Too many arguments (6/5) (too-many-arguments)
@@ -167,6 +165,15 @@ pygameUI/pygame_ui.py:82:0: R0912: Too many branches (36/12) (too-many-branches)
 pygameUI/pygame_ui.py:82:0: R0915: Too many statements (179/50) (too-many-statements)
 pygameUI/pygame_ui.py:428:30: W0613: Unused argument 'juego' (unused-argument)
 pygameUI/pygame_ui.py:468:0: R0914: Too many local variables (23/15) (too-many-locals)
+pygameUI/pygame_ui.py:470:4: E1101: Module 'pygame' has no 'init' member (no-member)
+pygameUI/pygame_ui.py:490:25: E1101: Module 'pygame' has no 'QUIT' member (no-member)
+pygameUI/pygame_ui.py:493:27: E1101: Module 'pygame' has no 'KEYDOWN' member (no-member)
+pygameUI/pygame_ui.py:494:29: E1101: Module 'pygame' has no 'K_ESCAPE' member (no-member)
+pygameUI/pygame_ui.py:494:46: E1101: Module 'pygame' has no 'K_q' member (no-member)
+pygameUI/pygame_ui.py:497:30: E1101: Module 'pygame' has no 'K_SPACE' member (no-member)
+pygameUI/pygame_ui.py:514:30: E1101: Module 'pygame' has no 'K_c' member (no-member)
+pygameUI/pygame_ui.py:521:27: E1101: Module 'pygame' has no 'MOUSEBUTTONDOWN' member (no-member)
+pygameUI/pygame_ui.py:528:27: E1101: Module 'pygame' has no 'MOUSEBUTTONDOWN' member (no-member)
 pygameUI/pygame_ui.py:486:4: R1702: Too many nested blocks (7/5) (too-many-nested-blocks)
 pygameUI/pygame_ui.py:486:4: R1702: Too many nested blocks (7/5) (too-many-nested-blocks)
 pygameUI/pygame_ui.py:486:4: R1702: Too many nested blocks (6/5) (too-many-nested-blocks)
@@ -175,6 +182,9 @@ pygameUI/pygame_ui.py:486:4: R1702: Too many nested blocks (7/5) (too-many-neste
 pygameUI/pygame_ui.py:486:4: R1702: Too many nested blocks (8/5) (too-many-nested-blocks)
 pygameUI/pygame_ui.py:486:4: R1702: Too many nested blocks (9/5) (too-many-nested-blocks)
 pygameUI/pygame_ui.py:486:4: R1702: Too many nested blocks (7/5) (too-many-nested-blocks)
+pygameUI/pygame_ui.py:701:30: E1101: Module 'pygame' has no 'QUIT' member (no-member)
+pygameUI/pygame_ui.py:701:43: E1101: Module 'pygame' has no 'KEYDOWN' member (no-member)
+pygameUI/pygame_ui.py:709:4: E1101: Module 'pygame' has no 'quit' member (no-member)
 pygameUI/pygame_ui.py:468:0: R0912: Too many branches (56/12) (too-many-branches)
 pygameUI/pygame_ui.py:468:0: R0915: Too many statements (172/50) (too-many-statements)
 pygameUI/pygame_ui.py:468:0: R1711: Useless return at end of function or method (useless-return)
@@ -308,13 +318,21 @@ tests/test_game.py:264:0: C0303: Trailing whitespace (trailing-whitespace)
 tests/test_game.py:266:0: C0303: Trailing whitespace (trailing-whitespace)
 tests/test_game.py:268:0: C0303: Trailing whitespace (trailing-whitespace)
 tests/test_game.py:270:0: C0303: Trailing whitespace (trailing-whitespace)
-tests/test_game.py:275:0: C0304: Final newline missing (missing-final-newline)
+tests/test_game.py:277:0: C0303: Trailing whitespace (trailing-whitespace)
+tests/test_game.py:279:0: C0303: Trailing whitespace (trailing-whitespace)
+tests/test_game.py:285:0: C0303: Trailing whitespace (trailing-whitespace)
+tests/test_game.py:290:0: C0303: Trailing whitespace (trailing-whitespace)
+tests/test_game.py:296:0: C0304: Final newline missing (missing-final-newline)
+tests/test_game.py:288:12: W0621: Redefining name 'Checker' from outer scope (line 5) (redefined-outer-name)
+tests/test_game.py:288:12: W0404: Reimport 'Checker' (imported line 5) (reimported)
+tests/test_game.py:288:12: C0415: Import outside toplevel (core.checker.Checker) (import-outside-toplevel)
 ************* Module tests.test_player
 tests/test_player.py:17:0: C0303: Trailing whitespace (trailing-whitespace)
-tests/test_player.py:32:0: C0304: Final newline missing (missing-final-newline)
+tests/test_player.py:34:0: C0303: Trailing whitespace (trailing-whitespace)
+tests/test_player.py:40:0: C0304: Final newline missing (missing-final-newline)
 
 -----------------------------------
-Your code has been rated at 7.71/10
+Your code has been rated at 7.24/10
 
 
 ```
