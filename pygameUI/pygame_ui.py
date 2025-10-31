@@ -587,7 +587,7 @@ def jugar_pygame(juego):
                                 message = "Esa zona OFF es para blancas"
                                 continue
                             # Buscar dado que permita bornear
-                            for dado in sorted(tirada, reverse=True):
+                            for dado in sorted(tirada):
                                 destino_test = selected_origin + dado
                                 if destino_test >= 24:
                                     pasos_necesarios = dado
@@ -601,7 +601,7 @@ def jugar_pygame(juego):
                             if color != 'N':
                                 message = "Esa zona OFF es para negras"
                                 continue
-                            for dado in sorted(tirada, reverse=True):
+                            for dado in sorted(tirada):
                                 destino_test = selected_origin - dado
                                 if destino_test < 0:
                                     pasos_necesarios = dado

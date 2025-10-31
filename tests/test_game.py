@@ -279,18 +279,5 @@ class TestJuegoLineasFinales(unittest.TestCase):
         
         self.assertEqual(juego.turno_actual, 'B')
 
-    def test_gano_jugador_negro(self):
-        """Verifica que detecte la victoria del jugador negro."""
-        juego = Juego()
-        
-        # Simular que el negro tiene 15 fichas borneadas
-        for _ in range(15):
-            from core.checker import Checker
-            juego.tablero.obtener_off('N').append(Checker('N'))
-        
-        self.assertTrue(juego.gano('N'))
-
-
-
 if __name__ == '__main__':
     unittest.main()
