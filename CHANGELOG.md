@@ -591,3 +591,7 @@ Bug crítico: detección de movimientos
 # 2025-10-31
 ## agregado
 -creacion de ReadMe
+
+# 2025-10-31
+## agregado
+-creacion de Justificacion
