@@ -13,9 +13,6 @@ class Juego:
         self.dados = Dice()
         self.jugadores = {'B': Player('B'), 'N': Player('N')}
 
-    def inicializar(self):
-        self.tablero.setup()
-        
     def cambiar_turno(self): 
         """Alterna el turno entre los jugadores blanco y negro."""
         if self.turno_actual == 'N':

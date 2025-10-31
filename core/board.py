@@ -24,12 +24,15 @@ class Tablero:
         """Configura el tablero con la posición inicial estándar de Backgammon."""
         self.__contenedor__ = [[] for _ in range(24)]
 
-       # Configuración inicial con objetos Checker
-        self.__contenedor__[0] = [Checker('N') for _ in range(1)] 
-        self.__off_negro__ = [Checker('N') for _ in range(14)]
-      
+        self.__contenedor__[0] = [Checker('B') for _ in range(2)]
+        self.__contenedor__[11] = [Checker('B') for _ in range(5)]
+        self.__contenedor__[16] = [Checker('B') for _ in range(3)]
+        self.__contenedor__[18] = [Checker('B') for _ in range(5)]
 
-        self.__contenedor__[17] = [Checker('B') for _ in range(15)]
+        self.__contenedor__[23] = [Checker('N') for _ in range(2)]
+        self.__contenedor__[12] = [Checker('N') for _ in range(5)]
+        self.__contenedor__[7] = [Checker('N') for _ in range(3)]
+        self.__contenedor__[5] = [Checker('N') for _ in range(5)]
       
 
     def mostrar(self): 
