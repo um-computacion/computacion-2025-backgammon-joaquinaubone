@@ -7,8 +7,10 @@ class Player:
     def __init__(self, color):
         """Inicializa un jugador con el color indicado."""
         self.__color__ = color
-        self.__nombre__ = "jugador_blanco" 
-        self.__nombre__ = "jugador_negro"
+        if color == 'B':
+            self.__nombre__ = "jugador_blanco"
+        else:
+            self.__nombre__ = "jugador_negro"
 
     def obtener_color(self):
         """Devuelve el color asignado al jugador ('B' o 'N')."""
