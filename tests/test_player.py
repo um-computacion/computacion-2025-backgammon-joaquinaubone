@@ -27,6 +27,14 @@ class TestPlayer(unittest.TestCase):
         jugador = Player('N')
         self.assertEqual(jugador.obtener_simbolo(), 'O')
 
+    def test_obtener_nombre(self):
+        """Verifica que se obtenga el nombre del jugador correctamente."""
+        jugador_blanco = Player('B')
+        jugador_negro = Player('N')
+        
+        self.assertEqual(jugador_blanco.obtener_nombre(), 'jugador_blanco')
+        self.assertEqual(jugador_negro.obtener_nombre(), 'jugador_negro')
+
 
 if __name__ == '__main__':
     unittest.main()

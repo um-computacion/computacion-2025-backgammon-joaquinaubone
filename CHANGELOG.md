@@ -587,3 +587,11 @@ Bug crítico: detección de movimientos
 - Revertido interpretar_tirada() que causaba retorno de lista vacía
 - Completado hay_movimientos_posibles() con lógica faltante de movimientos en tablero
 - Ahora detecta correctamente cuando hay movimientos disponibles
+
+# 2025-10-31
+## agregado
+-creacion de ReadMe
+
+# 2025-10-31
+## agregado
+-creacion de Justificacion
