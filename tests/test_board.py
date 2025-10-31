@@ -7,11 +7,6 @@ from exceptions import ColorInvalidoException, PosNoExistenteException
 
 class TestTablero(unittest.TestCase):
     """Clase de pruebas para Tablero."""
-
-    def setUp(self):
-        """Inicializa un tablero configurado antes de cada test."""
-        self.tablero = Tablero()
-        self.tablero.setup()
     
     def test_setup_inicial(self):
         """Verifica que se coloque cada pieza en su posición inicial."""
@@ -49,12 +44,6 @@ class TestTablero(unittest.TestCase):
         punto_5 = tablero.get_point(5)
         self.assertEqual(len(punto_5), 5)
         self.assertTrue(all(f.obtener_color() == 'N' for f in punto_5))
-    
-    def test_mostrar_no_falla(self):
-        """Verifica que el método mostrar() no lance excepciones."""
-        tablero = Tablero()
-        tablero.setup()
-        tablero.mostrar()
 
     def test_get_point_valido(self): 
         """Verifica que get_point retorne una lista para posición válida."""
@@ -102,15 +91,109 @@ class TestTablero(unittest.TestCase):
         self.assertEqual(tablero.obtener_off('N'), [])
     
     def test_mostrar_con_fichas_en_barra_blanca(self):
+        """Verifica que mostrar() funciona con fichas en barra blanca."""
         tablero = Tablero()
-        tablero.obtener_bar('B').append(Checker('B'))  # Una ficha blanca en barra
-        tablero.mostrar()  # Si no rompe, se ejecutó OK
+        tablero.obtener_bar('B').append(Checker('B')) 
+        tablero.mostrar()  
 
 
     def test_mostrar_con_fichas_en_barra_negra(self):
+        """Verifica que mostrar() funciona con fichas en barra negra."""
         tablero = Tablero()
-        tablero.obtener_bar('N').append(Checker('N'))  # Una ficha negra en barra
-        tablero.mostrar()  # Si no rompe, se ejecutó OK
+        tablero.obtener_bar('N').append(Checker('N')) 
+        tablero.mostrar() 
+
+    def test_get_point_posicion_limite_superior(self):
+        """Verifica excepción cuando posición es >= 24."""
+        tablero = Tablero()
+        
+        with self.assertRaises(PosNoExistenteException) as context:
+            tablero.get_point(24)
+        
+        self.assertIn("El punto no existe en el tablero", str(context.exception))
+
+    def test_get_point_posicion_negativa(self):
+        """Verifica excepción cuando posición es negativa."""
+        tablero = Tablero()
+        
+        with self.assertRaises(PosNoExistenteException) as context:
+            tablero.get_point(-1)
+        
+        self.assertIn("El punto no existe en el tablero", str(context.exception))
+
+    def test_obtener_bar_color_negro(self):
+        """Verifica que obtener_bar('N') retorna la barra negra."""
+        tablero = Tablero()
+        
+        tablero.obtener_bar('N').append(Checker('N'))
+        
+        barra_negra = tablero.obtener_bar('N')
+        self.assertEqual(len(barra_negra), 1)
+        self.assertEqual(barra_negra[0].obtener_color(), 'N')
+
+    def test_obtener_bar_color_invalido_mayusculas(self):
+        """Verifica excepción con color inválido en obtener_bar."""
+        tablero = Tablero()
+        
+        with self.assertRaises(ColorInvalidoException) as context:
+            tablero.obtener_bar('BLANCO')
+        
+        self.assertIn("Color no válido", str(context.exception))
+
+    
+    def test_obtener_off_color_negro(self):
+        """Verifica que obtener_off('N') retorna el off negro."""
+        tablero = Tablero()
+        
+        # Agregar ficha a off negro
+        tablero.obtener_off('N').append(Checker('N'))
+        
+        off = tablero.obtener_off('N')
+        self.assertEqual(len(off), 1)
+        self.assertEqual(off[0].obtener_color(), 'N')
+
+    def test_obtener_off_color_invalido_minusculas(self):
+        """Verifica excepción con color inválido en obtener_off."""
+        tablero = Tablero()
+        
+        with self.assertRaises(ColorInvalidoException) as context:
+            tablero.obtener_off('b')  
+        
+        self.assertIn("Color no válido", str(context.exception))
+
+    def test_mostrar_con_tablero_vacio(self):
+        """Verifica que mostrar() funciona con tablero completamente vacío."""
+        tablero = Tablero()
+        # NO llamar setup() - tablero vacío
+        
+        try:
+            tablero.mostrar()
+        except (ValueError, IndexError) as e:
+            self.fail(f"mostrar() falló con tablero vacío: {e}")
+
+    def test_mostrar_con_fichas_en_todas_las_estructuras(self):
+        """Verifica mostrar() con fichas en tablero, barras y off."""
+        tablero = Tablero()
+        tablero.setup()
+        
+        tablero.obtener_bar('B').append(Checker('B'))
+        tablero.obtener_bar('N').append(Checker('N'))
+        tablero.obtener_off('B').append(Checker('B'))
+        tablero.obtener_off('N').append(Checker('N'))
+        try:
+            tablero.mostrar()
+        except (ValueError, IndexError) as e:
+            self.fail(f"mostrar() falló: {e}")
+
+    def test_get_point_retorna_lista_mutable(self):
+        """Verifica que get_point retorna lista que se puede modificar."""
+        tablero = Tablero()
+        
+        punto = tablero.get_point(0)
+        punto.append(Checker('B'))
+        self.assertEqual(len(tablero.get_point(0)), 3)
+
+    
 
 
     

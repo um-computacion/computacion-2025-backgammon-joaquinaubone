@@ -538,3 +538,52 @@ Errores de estilo en `pygameUI/pygame_ui.py` según pylint
 - Cambiado manejo de excepción genérica Exception a ValueError específico
 - Agregada línea en blanco al final del archivo según estándar POSIX
 - Mejorada legibilidad con variables intermedias para condiciones complejas (mostrar_total en fichas de barra)
+
+# Changelog
+
+Todos los cambios notables de este proyecto serán documentados en este archivo.
+
+---
+
+## 2025-10-29
+
+### Agregado
+Clase `Checker` para representar fichas del juego
+- Implementada clase `Checker` en `core/checker.py`
+- Métodos `__init__`, `obtener_color`, `__str__` ('X'/'O') y `__repr__`
+- Integrada en clase `Player` para método `obtener_simbolo()`
+Reorganización de estructura del repositorio
+- Reorganizadas carpetas `core/`, `cli/` y `tests/` para mejor modularidad
+- Actualizados imports en todos los módulos
+Cobertura de tests significativamente incrementada
+- Agregados tests completos para `Checker`: 100% cobertura
+- Agregados tests adicionales para `Player`: 100% cobertura (de 79%)
+- Agregados tests adicionales para `Game`: 87-100% cobertura (de 53%)
+- Corregidos tests en `CLI` para pasar correctamente (ajustados mocks y side_effects)
+
+## 2025-10-30
+
+### Agregado
+Tests unitarios para CLI
+- Implementados 4 tests en tests/test_cli.py para validar flujo del juego
+- test_rechaza_valor_no_en_tirada: verifica rechazo de valores no disponibles
+- test_condicion_victoria_verifica_ambos_colores: valida condición de victoria
+- test_muestra_mensaje_cuando_movimiento_invalido: verifica mensajes de error
+- test_muestra_mensaje_victoria_final: valida mensaje final de victoria
+- Todos los tests usan mocks para aislar lógica del CLI
+- Cobertura de CLI incrementada significativamente
+Errores de pylint en todos los módulos
+- Eliminado trailing whitespace en core/game.py, core/board.py, cli/cli.py
+- Agregados docstrings faltantes en métodos de test
+- Renombrados parámetros no usados con underscore (_mock_input)
+- Corregidas líneas largas (>100 caracteres) en comentarios
+- Mejorado formato y legibilidad del código: 10.00/10 en pylint
+
+Bug crítico: inicialización de tablero
+- Agregado self.setup() en Board.__init__() para inicializar fichas correctamente
+- Sin esto, el tablero iniciaba vacío y no había movimientos posibles
+
+Bug crítico: detección de movimientos
+- Revertido interpretar_tirada() que causaba retorno de lista vacía
+- Completado hay_movimientos_posibles() con lógica faltante de movimientos en tablero
+- Ahora detecta correctamente cuando hay movimientos disponibles

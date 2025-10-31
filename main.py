@@ -5,7 +5,6 @@ y ejecuta la interfaz CLI para comenzar la partida.
 """
 from core.game import Juego
 from cli.cli import jugar
-from pygameUI.pygame_ui import jugar_pygame
 
 def main():
     """Punto de entrada del programa. Configura los objetos principales y lanza el juego."""
@@ -26,8 +25,10 @@ def main():
     
     if opcion == '2':
         try:
+            from pygameUI.pygame_ui import jugar_pygame
             print("\nIniciando interfaz gráfica...\n")
             jugar_pygame(juego)
+            
         except ImportError:
             print("\n  Error: Pygame no está instalado.")
             print("Instalalo con: pip install pygame")

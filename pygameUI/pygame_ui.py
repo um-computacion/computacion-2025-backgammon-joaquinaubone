@@ -1,8 +1,6 @@
 """Interfaz gráfica del juego de Backgammon usando Pygame."""
-import sys
-import copy
+
 import pygame
-from core.game import Juego
 
 # ------------------ Config visual ------------------
 WIDTH, HEIGHT = 1000, 700
@@ -454,17 +452,16 @@ def calcular_destinos_validos(juego, origen, dados_disponibles, color):
         
         # Verificar que el destino esté dentro del tablero
         if 0 <= destino <= 23:
-            # Ahora SÍ verificar si es válido haciendo una copia temporal
-            juego_temp = copy.deepcopy(juego)
-            
-            try:
-                juego_temp.mover(origen, dado)
-                # Si no lanzó excepción, el movimiento es válido
-                if destino not in destinos:
-                    destinos.append(destino)
-            except ValueError:
-                # Movimiento inválido, no agregar
-                pass
+            if destino not in destinos:
+                destinos.append(destino)
+        elif color == 'B' and destino >= 24:
+            # borneado blanco
+            if 999 not in destinos:
+                destinos.append(999)
+        elif color == 'N' and destino < 0:
+            # borneado negro
+            if 998 not in destinos:
+                destinos.append(998)
 
     return destinos
 
@@ -489,7 +486,7 @@ def jugar_pygame(juego):
     while running and not juego.gano('B') and not juego.gano('N'):
         color = juego.obtener_jugador_actual().obtener_color()
 
-        for e in pygame.event.get():
+        for e in pygame.event.get(): #captura lo q hace jugador
             if e.type == pygame.QUIT:
                 running = False
                 
@@ -710,4 +707,4 @@ def jugar_pygame(juego):
             clock.tick(60)
 
     pygame.quit()
-    sys.exit()
+    return
