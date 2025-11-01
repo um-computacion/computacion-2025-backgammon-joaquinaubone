@@ -4,7 +4,7 @@
 Name                   Stmts   Miss  Cover   Missing
 ----------------------------------------------------
 cli/__init__.py            0      0   100%
-cli/cli.py                43      5    88%   36-38, 45, 55
+cli/cli.py                43      0   100%
 core/__init__.py           0      0   100%
 core/board.py             93      0   100%
 core/checker.py            9      0   100%
@@ -14,7 +14,7 @@ core/player.py            14      0   100%
 exceptions.py              8      0   100%
 pygameUI/__init__.py       0      0   100%
 ----------------------------------------------------
-TOTAL                    325     22    93%
+TOTAL                    325     17    95%
 
 ```
 ## Pylint Report
@@ -22,10 +22,10 @@ TOTAL                    325     22    93%
 ************* Module cli.cli
 cli/cli.py:9:0: C0303: Trailing whitespace (trailing-whitespace)
 cli/cli.py:24:0: C0303: Trailing whitespace (trailing-whitespace)
-cli/cli.py:46:0: C0303: Trailing whitespace (trailing-whitespace)
-cli/cli.py:58:0: C0303: Trailing whitespace (trailing-whitespace)
-cli/cli.py:62:27: C0303: Trailing whitespace (trailing-whitespace)
-cli/cli.py:68:0: C0305: Trailing newlines (trailing-newlines)
+cli/cli.py:45:0: C0303: Trailing whitespace (trailing-whitespace)
+cli/cli.py:57:0: C0303: Trailing whitespace (trailing-whitespace)
+cli/cli.py:61:27: C0303: Trailing whitespace (trailing-whitespace)
+cli/cli.py:67:0: C0305: Trailing newlines (trailing-newlines)
 ************* Module core.board
 core/board.py:11:23: C0303: Trailing whitespace (trailing-whitespace)
 core/board.py:15:58: C0303: Trailing whitespace (trailing-whitespace)
@@ -246,6 +246,18 @@ tests/test_cli.py:69:25: C0303: Trailing whitespace (trailing-whitespace)
 tests/test_cli.py:70:24: C0303: Trailing whitespace (trailing-whitespace)
 tests/test_cli.py:71:16: C0303: Trailing whitespace (trailing-whitespace)
 tests/test_cli.py:84:0: C0303: Trailing whitespace (trailing-whitespace)
+tests/test_cli.py:101:0: C0303: Trailing whitespace (trailing-whitespace)
+tests/test_cli.py:106:0: C0303: Trailing whitespace (trailing-whitespace)
+tests/test_cli.py:110:0: C0303: Trailing whitespace (trailing-whitespace)
+tests/test_cli.py:120:0: C0303: Trailing whitespace (trailing-whitespace)
+tests/test_cli.py:123:0: C0303: Trailing whitespace (trailing-whitespace)
+tests/test_cli.py:128:0: C0303: Trailing whitespace (trailing-whitespace)
+tests/test_cli.py:132:0: C0303: Trailing whitespace (trailing-whitespace)
+tests/test_cli.py:148:0: C0303: Trailing whitespace (trailing-whitespace)
+tests/test_cli.py:151:0: C0303: Trailing whitespace (trailing-whitespace)
+tests/test_cli.py:156:0: C0303: Trailing whitespace (trailing-whitespace)
+tests/test_cli.py:160:0: C0303: Trailing whitespace (trailing-whitespace)
+tests/test_cli.py:175:0: C0303: Trailing whitespace (trailing-whitespace)
 ************* Module tests.test_dice
 tests/test_dice.py:24:55: C0303: Trailing whitespace (trailing-whitespace)
 tests/test_dice.py:34:0: C0303: Trailing whitespace (trailing-whitespace)
@@ -320,19 +332,14 @@ tests/test_game.py:268:0: C0303: Trailing whitespace (trailing-whitespace)
 tests/test_game.py:270:0: C0303: Trailing whitespace (trailing-whitespace)
 tests/test_game.py:277:0: C0303: Trailing whitespace (trailing-whitespace)
 tests/test_game.py:279:0: C0303: Trailing whitespace (trailing-whitespace)
-tests/test_game.py:285:0: C0303: Trailing whitespace (trailing-whitespace)
-tests/test_game.py:290:0: C0303: Trailing whitespace (trailing-whitespace)
-tests/test_game.py:296:0: C0304: Final newline missing (missing-final-newline)
-tests/test_game.py:288:12: W0621: Redefining name 'Checker' from outer scope (line 5) (redefined-outer-name)
-tests/test_game.py:288:12: W0404: Reimport 'Checker' (imported line 5) (reimported)
-tests/test_game.py:288:12: C0415: Import outside toplevel (core.checker.Checker) (import-outside-toplevel)
+tests/test_game.py:283:0: C0304: Final newline missing (missing-final-newline)
 ************* Module tests.test_player
 tests/test_player.py:17:0: C0303: Trailing whitespace (trailing-whitespace)
 tests/test_player.py:34:0: C0303: Trailing whitespace (trailing-whitespace)
 tests/test_player.py:40:0: C0304: Final newline missing (missing-final-newline)
 
 -----------------------------------
-Your code has been rated at 7.24/10
+Your code has been rated at 7.26/10
 
 
 ```
