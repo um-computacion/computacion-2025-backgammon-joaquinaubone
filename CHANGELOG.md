@@ -595,3 +595,15 @@ Bug crítico: detección de movimientos
 # 2025-10-31
 ## agregado
 -creacion de Justificacion
+
+# CHANGELOG
+
+## [Unreleased]
+
+### Added - Tests CLI
+- test_maneja_entrada_no_numerica**: Verifica que el CLI maneja correctamente entrada no numérica (letras en lugar de números) y solicita input nuevamente hasta recibir valores válidos. Cubre líneas 36-38 del manejo de excepciones ValueError.
+
+- test_termina_turno_cuando_gana_en_medio_de_tirada**: Verifica que el juego termina correctamente cuando un jugador gana en medio de una tirada con múltiples dados disponibles. Cubre línea 45 (condición de victoria dentro del while de movimientos).
+
+- test_termina_juego_cuando_gana_al_finalizar_turno**: Verifica que el juego termina correctamente cuando un jugador gana al completar todos los movimientos de su turno. Cubre línea 55 (condición de victoria después del while de tirada) y verifica que no se llama a `cambiar_turno()` cuando hay un ganador.
+

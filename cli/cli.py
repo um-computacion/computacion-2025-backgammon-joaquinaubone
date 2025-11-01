@@ -21,8 +21,7 @@ def jugar(juego):
             print("No hay movimientos posibles. Pierdes el turno.")
             juego.cambiar_turno()
             continue
-            
-
+        
         while tirada:
 
             print("\n📍 Estado actual del tablero:")
